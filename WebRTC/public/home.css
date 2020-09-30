@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+    background-color: rgb(34, 35, 36);
+}
+
+button{
+    background: none;
+    border: 1px solid white;
+    padding: 20px;
+    margin: 0px 10px;
+    transition: 0.3s ease;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    transition: 0.3s ease;
+}
+
+button:focus{
+    outline: 0;
+}
+
+.buttons{
+    display: flex;
+    margin-top: 50px;
+}
