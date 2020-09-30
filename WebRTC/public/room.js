@@ -1,6 +1,9 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 
+const roomCode = document.getElementById('room-code')
+roomCode.innerHTML = ROOM_ID
+
 const myPeer = new Peer(undefined, {
     host: '/',
     port: '3001'
