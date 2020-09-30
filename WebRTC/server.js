@@ -8,7 +8,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home', {userCount: io.engine.clientsCount})
 })
 
 app.get('/create-room', (req, res) => {

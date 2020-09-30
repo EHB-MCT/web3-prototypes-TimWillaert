@@ -51,11 +51,10 @@ h1{
 }
 
 h2{
-    margin-bottom: 100px;
     font-weight: 300;
     font-size: 1.3rem;
     font-style: italic;
-    margin-top: 5px;
+    margin-left: 10px;
 }
 
 p{
@@ -86,4 +85,21 @@ input:focus{
     padding: 10px;
     font-size: 1rem;
     margin-left: 30px;
+}
+
+
+#green-circle{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: rgb(27, 184, 27);
+    margin-top: -3px;
+}
+
+#online-users{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 100px;
+    margin-top: 5px;
 }

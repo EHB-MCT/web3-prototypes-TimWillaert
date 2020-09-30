@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebRTC Prototype</title>
     <link rel="stylesheet" href="css/home.css">
+    <script>
+        const USER_COUNT = "<%= userCount %>"
+    </script>
     <script src="home.js"></script>
     <script src="three.r119.min.js"></script>
     <script src="vanta.halo.min.js"></script>
@@ -15,12 +18,15 @@
     <div class="container">
         <div>
             <h1>WebRTC Prototype</h1>
-            <h2>Why did I even bother styling this?</h2>
+            <div id="online-users">
+                <div id="green-circle"></div>
+                <h2 id="user-count">Online users</h2>
+            </div>
             <a href="create-room"><button>Start video chatting</button></a>
             <p>..or participate in an existing call</p>
             <div id="row">
                 <input type="text" placeholder="liable-harlequin-owl" id="input">
-                <button onclick="joinRoom()">Join room</button>
+                <button onclick="joinRoom()">Join call</button>
             </div>
         </div>
     </div>
@@ -34,6 +40,8 @@
             minHeight: 200.00,
             minWidth: 200.00
         })
+
+        document.getElementById('user-count').innerHTML = 'Online users: ' + USER_COUNT
     </script>
 </body>
 </html>
