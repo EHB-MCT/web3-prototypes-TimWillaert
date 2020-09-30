@@ -9,6 +9,7 @@
     <script>
         const ROOM_ID = "<%= roomId %>"
     </script>
+    <script src="deepai.min.js"></script>
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="room.js" defer></script>
@@ -16,23 +17,46 @@
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 </head>
 <body>
+    <div id="aicontainer">
+        <div class="aipopup">
+            <div class="aiheader">
+                <h3>Here's an AI generated image of your room name</h3>
+                <div onclick="closeImage()">
+                    <i class="fas fa-times fa-lg"></i>
+                </div>
+            </div>
+            <img src="loading.gif" id="spinner">
+            <img src="" id="aiimage">
+        </div>
+    </div>
     <div class="container">
-        <div class="room-code">
-            <h2>Send this code to your friends</h2>
-            <h1 id="room-code"></h1>
-            <i class="fas fa-paste fa-lg" onclick="copyCode()" id="copyCode"></i>
-        </div>
-        <div id="video-grid">
-            
-        </div>
-        <div class="controls">
-            <div onclick="toggleMute()">
-                <i class="fas fa-microphone fa-lg" id="mute"></i>
-                <i class="fas fa-microphone-slash fa-lg" id="unmute"></i>
-            </div>   
-            <div onclick="toggleVideo()">
-                <i class="fas fa-video fa-lg" id="hideVideo"></i>
-                <i class="fas fa-video-slash fa-lg" id="showVideo"></i>
+        <div class="row-container">
+            <div class="left-container">
+                <div class="room-code">
+                    <h2>Others can join with this code</h2>
+                    <h1 id="room-code"></h1>
+                    <i class="fas fa-paste fa-lg" onclick="copyCode()" id="copyCode"></i>
+                    <i class="fas fa-eye fa-lg" onclick="viewImage()" id="viewImage"></i>
+                </div>
+                <div id="video-grid"></div>
+                <div class="controls">
+                    <div onclick="toggleMute()">
+                        <i class="fas fa-microphone fa-lg" id="mute"></i>
+                        <i class="fas fa-microphone-slash fa-lg" id="unmute"></i>
+                    </div>   
+                    <div onclick="toggleVideo()">
+                        <i class="fas fa-video fa-lg" id="hideVideo"></i>
+                        <i class="fas fa-video-slash fa-lg" id="showVideo"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="right-container">
+                <div id="chat">
+
+                </div>
+                <div class="input">
+                    <input type="text" placeholder="Type your message" id="input">
+                </div>
             </div>
         </div>
     </div>

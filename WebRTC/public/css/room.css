@@ -11,9 +11,11 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    min-height: 80%;
+    align-items: center;
  }
 
- video{
+video{
     height: 300px;
     width: 400px;
     object-fit: cover;
@@ -54,7 +56,7 @@ h1{
     color: rgba(255, 255, 255, 0.336);
 }
 
-i:hover, .controls div:hover{
+i:hover, .controls div:hover, .aiheader div:hover{
     cursor: pointer;
 }
 
@@ -69,7 +71,7 @@ i:hover, .controls div:hover{
     padding-top: 0;
 }
 
-.controls div{
+.controls div, .aiheader div{
     background-color: rgba(0, 0, 0, 0.199);
     height: 60px;
     width: 60px;
@@ -80,10 +82,150 @@ i:hover, .controls div:hover{
     margin: 0px 10px;
 }
 
-.controls div:hover{
+.aiheader div{
+    height: 40px !important;
+    width: 40px !important;
+    margin: 0 !important;
+}
+
+.controls div:hover, .aiheader div:hover{
     background-color: rgba(0, 0, 0, 0.096);
 }
 
 #unmute, #showVideo{
     color: rgba(245, 37, 37, 0.603);
+}
+
+.left-container{
+    height: 100%;
+    width: 75vw;
+}
+
+.row-container{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.right-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color:  rgba(0, 0, 0, 0.199);
+    width: calc(25vw - 30px);
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+#input{
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.096);
+    border: none;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.774);
+    font-size: 1rem;
+}
+
+#input::placeholder{
+    color: rgba(255, 255, 255, 0.322);
+}
+
+#input:focus{
+    outline: none;
+}
+
+.input{
+    display: flex;
+    justify-content: center;
+}
+
+#chat{
+    overflow-y: scroll;
+    padding-bottom: 20px;
+}
+
+#chat p{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    background-color: rgba(71, 71, 71, 0.432);
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 15px;
+    border-radius: 6px;
+    display: inline-block;
+    clear: both;
+    float: left;
+    word-wrap: break-word;
+    max-width: calc(100% - 40px);
+    color: rgba(255, 255, 255, 0.774);
+}
+
+.my-message{
+    float: right !important;
+    background-color: rgba(71, 71, 71, 0.9) !important;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: none; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(51, 51, 51); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(58, 58, 58); 
+}
+
+#aicontainer{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.788);
+    z-index: 999;
+}
+
+.aipopup{
+    width: 40vw;
+    height: 60vh;
+    background-color: rgb(34, 35, 36);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+    border-radius: 10px;
+}
+
+#aiimage, #spinner{
+    object-fit: cover;
+    max-height: 80%;
+    max-width: 90%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-45%);
+}
+
+#spinner{
+    height: 50px !important;
+}
+
+.aiheader{
+    box-sizing: border-box;
+    padding: 20px 30px;
+    color: rgba(255, 255, 255, 0.767);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

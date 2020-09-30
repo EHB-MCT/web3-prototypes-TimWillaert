@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "deepai": "^1.0.15",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "hark": "^1.2.3",
     "peer": "0.5.3",
     "socket.io": "^2.3.0",
     "tippy.js": "^6.2.6",
