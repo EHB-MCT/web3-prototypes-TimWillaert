@@ -72,7 +72,7 @@ i:hover, .controls div:hover{
     align-items: center;
     color: rgba(255, 255, 255, 0.555);
     box-sizing: border-box;
-    padding: 30px;
+    padding: 40px;
     padding-top: 0;
 }
 
@@ -85,6 +85,10 @@ i:hover, .controls div:hover{
     align-items: center;
     border-radius: 50%;
     margin: 0px 10px;
+}
+
+.controls div:hover{
+    background-color: rgba(0, 0, 0, 0.096);
 }
 
 #unmute, #showVideo{
