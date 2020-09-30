@@ -4,11 +4,7 @@ const videoGrid = document.getElementById('video-grid')
 const roomCode = document.getElementById('room-code')
 roomCode.innerHTML = ROOM_ID
 
-const myPeer = new Peer(undefined, {
-    host: '/',
-    path: '/peerjs',
-    port: '3000'
-  })
+const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443})
 
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -29,11 +25,13 @@ navigator.mediaDevices.getUserMedia({
     })
 
     socket.on('user-connected', userId => {
+        console.log('User connected: ' + userId)
         connectToNewUser(userId, stream)
     })
 })
 
 socket.on('user-disconnected', userId => {
+    console.log('User disconnected: ' + userId);
     if(peers[userId]) peers[userId].close()
 })
 
