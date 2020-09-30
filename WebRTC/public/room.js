@@ -10,10 +10,15 @@ const myVideo = document.createElement('video')
 myVideo.muted = true
 const peers = {}
 
+let myVideoStream;
+document.getElementById('unmute').style.display = 'none';
+document.getElementById('showVideo').style.display = 'none';
+
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then(stream => {
+    myVideoStream = stream;
     addVideoStream(myVideo, stream)
 
     myPeer.on('call', call => {
@@ -60,3 +65,43 @@ function connectToNewUser(userId, stream){
 
     peers[userId] = call
 }
+
+function copyCode(){
+    navigator.clipboard.writeText(ROOM_ID)
+}
+
+function toggleMute(){
+    const enabled = myVideoStream.getAudioTracks()[0].enabled;
+    if(enabled){
+        myVideoStream.getAudioTracks()[0].enabled = false;
+        document.getElementById('mute').style.display = 'none';
+        document.getElementById('unmute').style.display = 'block';
+    } else{
+        myVideoStream.getAudioTracks()[0].enabled = true;
+        document.getElementById('mute').style.display = 'block';
+        document.getElementById('unmute').style.display = 'none';
+    }
+}
+
+function toggleVideo(){
+    const enabled = myVideoStream.getVideoTracks()[0].enabled;
+    if(enabled){
+        myVideoStream.getVideoTracks()[0].enabled = false;
+        document.getElementById('hideVideo').style.display = 'none';
+        document.getElementById('showVideo').style.display = 'block';
+    } else{
+        myVideoStream.getVideoTracks()[0].enabled = true;
+        document.getElementById('hideVideo').style.display = 'block';
+        document.getElementById('showVideo').style.display = 'none';
+    }
+}
+
+tippy('#copyCode', {
+    content: 'Copied!',
+    trigger: 'click',
+    duration: 200
+});
+
+tippy('#copyCode', {
+    content: 'Copy to clipboard',
+});
