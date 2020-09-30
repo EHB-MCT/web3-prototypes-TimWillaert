@@ -4,10 +4,7 @@ const videoGrid = document.getElementById('video-grid')
 const roomCode = document.getElementById('room-code')
 roomCode.innerHTML = ROOM_ID
 
-const myPeer = new Peer(undefined, {
-    host: '/',
-    port: '3001'
-})
+const myPeer = new Peer({host:'https://webrtc-prototype-web3.herokuapp.com/', secure:true, port:443})
 
 const myVideo = document.createElement('video')
 myVideo.muted = true
