@@ -2,13 +2,17 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-const { PeerServer } = require('peer');
+const { ExpressPeerServer } = require('peer');
 const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const peerServer = PeerServer({ port: 443, path: '/peerserver' });
+const peerServer = ExpressPeerServer(server, {
+    debug: true
+});
+  
+app.use('/peerjs', peerServer);
 
 app.get('/', (req, res) => {
     res.render('home')

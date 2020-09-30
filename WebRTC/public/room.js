@@ -5,10 +5,9 @@ const roomCode = document.getElementById('room-code')
 roomCode.innerHTML = ROOM_ID
 
 const myPeer = new Peer(undefined, {
-    path: '/peerserver',
-    host: 'webrtc-prototype-web3.herokuapp.com/',
-    port: '443',
-    secure: true
+    host: '/',
+    path: '/peerjs',
+    port: '3000'
   })
 
 const myVideo = document.createElement('video')
