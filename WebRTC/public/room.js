@@ -41,10 +41,11 @@ myPeer.on('open', id => {
 
 function addVideoStream(video, stream){
     video.srcObject = stream
+    video.autoplay = true
+    videoGrid.append(video)
     video.addEventListener('loadedmetadata', () => {
         video.play()
     })
-    videoGrid.append(video)
 }
 
 function connectToNewUser(userId, stream){
