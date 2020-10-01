@@ -16,19 +16,53 @@ const peers = {}
 
 let myVideoStream;
 let myUserId;
+let myUsername;
 
+let gotUserMedia = false
+
+document.getElementById('container').style.display = 'none';
 document.getElementById('unmute').style.display = 'none';
 document.getElementById('showVideo').style.display = 'none';
 document.getElementById('aicontainer').style.display = 'none';
+
+function checkName(){
+    myUsername = document.getElementById('name').value;
+    if(myUsername != ''){
+        document.getElementById('name').style.borderBottomColor = 'rgba(255, 255, 255, 0.329)';
+        if(gotUserMedia){
+            document.getElementById('setup').classList.add('fadeOut')
+            setTimeout(() => {
+                document.getElementById('setup').style.display = 'none'
+                document.getElementById('container').style.display = 'flex'
+                document.getElementById('container').classList.add('fadeIn')
+                document.getElementById('previewVideo').remove()
+            }, 500)
+            socket.emit('connect-message', myUsername)
+        } else{
+            document.getElementById('error').innerHTML = 'No camera found or no permission granted. Please grant permission and refresh the page.'
+        }
+    } else{
+        document.getElementById('name').style.borderBottomColor = 'rgba(245, 37, 37, 0.603)';
+    }
+}
 
 navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then(stream => {
+    gotUserMedia = true
+
+    let video = document.createElement('video')
+    video.id = 'previewVideo'
+    video.srcObject = stream
+    video.autoplay = true
+    document.getElementById('setup').append(video)
+
     myVideoStream = stream;
     addVideoStream(myVideo, stream)
 
     myPeer.on('call', call => {
+        console.log('call')
         call.answer(stream)
         const video = document.createElement('video')
         call.on('stream', userVideoStream => {
@@ -46,7 +80,7 @@ navigator.mediaDevices.getUserMedia({
         event.preventDefault()
         if(event.key === 13 || event.key === 'Enter'){
             if(input.value != ''){
-                socket.emit('message', {value: input.value, userId: myUserId})
+                socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
                 input.value = ''
             }
         }
@@ -55,13 +89,38 @@ navigator.mediaDevices.getUserMedia({
     socket.on('createMessage', message => {
         let chat = document.getElementById('chat')
         let msg = document.createElement('p')
+        let username = document.createElement('span')
         if(message.userId == myUserId){
             msg.className = 'my-message'
+            username.className = 'my-username'
+            username.innerHTML = 'You'
+        } else{
+            username.innerHTML = message.userName
         }
         msg.innerHTML = message.value
+        chat.append(username)
         chat.append(msg)
         scrollToBottom()
     })
+
+    socket.on('createConnectMessage', username => {
+        let chat = document.getElementById('chat')
+        let servermsg = document.createElement('span')
+        servermsg.className = 'server-msg'
+        servermsg.innerHTML = username + ' connected'
+        chat.append(servermsg)
+    })
+
+    socket.on('createDisonnectMessage', username => {
+        let chat = document.getElementById('chat')
+        let servermsg = document.createElement('span')
+        servermsg.className = 'server-msg'
+        servermsg.innerHTML = username + ' disconnected'
+        chat.append(servermsg)
+    })
+
+}).catch(err => {
+    console.log(err)
 })
 
 socket.on('user-disconnected', userId => {
@@ -87,9 +146,11 @@ function connectToNewUser(userId, stream){
     const call = myPeer.call(userId, stream)
     const video = document.createElement('video')
     call.on('stream', userVideoStream => {
+        console.log('stream')
         addVideoStream(video, userVideoStream)
     })
     call.on('close', () => {
+        console.log('close')
         video.remove()
     })
 
@@ -165,3 +226,7 @@ tippy('#copyCode', {
 tippy('#viewImage', {
     content: 'View AI Generated Image',
 });
+
+window.onbeforeunload = function(){
+    socket.emit('disconnect-message', myUsername)
+};
