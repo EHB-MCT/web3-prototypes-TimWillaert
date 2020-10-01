@@ -121,10 +121,9 @@ i:hover, .controls div:hover, .aiheader div:hover{
 }
 
 #input{
-    width: 90%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.034);
     border: none;
-    margin-bottom: 18px;
     box-sizing: border-box;
     padding: 15px;
     border-radius: 6px;
@@ -143,6 +142,9 @@ i:hover, .controls div:hover, .aiheader div:hover{
 .input{
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+    margin-bottom: 20px;
 }
 
 #chat{
@@ -349,4 +351,17 @@ span{
     height: 50px;
     font-style: 1.2rem;
     color: rgba(245, 37, 37, 0.603);
+}
+
+.followup-msg{
+    margin-top: -13.5px;
+}
+
+#sendMessage{
+    margin-left: 20px;
+    color: rgba(255, 255, 255, 0.336);
+}
+
+#sendMessage:hover{
+    color: rgba(255, 255, 255, 0.685);
 }

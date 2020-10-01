@@ -25,6 +25,15 @@ document.getElementById('unmute').style.display = 'none';
 document.getElementById('showVideo').style.display = 'none';
 document.getElementById('aicontainer').style.display = 'none';
 
+let nameInput = document.getElementById('name')
+nameInput.addEventListener('keyup', function(event){
+    event.preventDefault()
+    if(event.key === 13 || event.key === 'Enter'){
+        checkName()
+    }
+})
+
+
 function checkName(){
     myUsername = document.getElementById('name').value;
     if(myUsername != ''){
@@ -56,6 +65,7 @@ navigator.mediaDevices.getUserMedia({
     video.id = 'previewVideo'
     video.srcObject = stream
     video.autoplay = true
+    video.muted = true
     document.getElementById('setup').append(video)
 
     myVideoStream = stream;
@@ -98,7 +108,15 @@ navigator.mediaDevices.getUserMedia({
             username.innerHTML = message.userName
         }
         msg.innerHTML = message.value
-        chat.append(username)
+        msg.classList.add(message.userId)
+
+        let lastMsg = document.getElementById('chat').lastChild;
+        if(!lastMsg.classList.contains(message.userId)){
+            chat.append(username)
+        } else{
+            msg.classList.add('followup-msg')
+        }
+
         chat.append(msg)
         scrollToBottom()
     })
@@ -132,6 +150,14 @@ myPeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id)
     myUserId = id
 })
+
+function sendMessage(){
+    let input = document.getElementById('input')
+    if(input.value != ''){
+        socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
+        input.value = ''
+    }
+}
 
 function addVideoStream(video, stream){
     video.srcObject = stream
