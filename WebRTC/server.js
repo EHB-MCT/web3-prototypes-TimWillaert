@@ -39,6 +39,14 @@ io.on('connection', socket => {
         socket.on('disconnect-message', (username) => {
             io.to(roomId).emit('createDisonnectMessage', username)
         })
+
+        socket.on('startedTyping', (username) => {
+            io.to(roomId).emit('addTyper', username)
+        })
+
+        socket.on('stoppedTyping', (username) => {
+            io.to(roomId).emit('removeTyper', username)
+        })
     
         socket.on('disconnect', () => {
             socket.to(roomId).broadcast.emit('user-disconnected', userId)

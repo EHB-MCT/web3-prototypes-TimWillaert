@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebRTC Prototype</title>
     <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="css/all.min.css">
     <script>
         const ROOM_ID = "<%= roomId %>"
@@ -21,7 +22,7 @@
         <h1>Choose your display name</h1>
         <div id="row">
             <input type="text" id="name" placeholder="Chuck N.">
-            <button onclick="checkName()">Proceed <i class="fas fa-long-arrow-alt-right" style="margin-left: 10px;"></i></button>
+            <button onclick="checkName()">Join call <i class="fas fa-long-arrow-alt-right" style="margin-left: 10px;"></i></button>
         </div>
         <p id="error"></p>
     </div>
@@ -60,7 +61,7 @@
             </div>
             <div class="right-container">
                 <div id="chat">
-
+                    <p id="isTyping"></p>
                 </div>
                 <div class="input">
                     <input type="text" placeholder="Type your message" id="input">

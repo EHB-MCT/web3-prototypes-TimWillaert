@@ -20,6 +20,12 @@ let myUsername;
 
 let gotUserMedia = false
 
+let typingPeers = []
+let isTyping = false
+
+let isTypingMsg = document.getElementById('isTyping')
+let timeout = undefined
+
 document.getElementById('container').style.display = 'none';
 document.getElementById('unmute').style.display = 'none';
 document.getElementById('showVideo').style.display = 'none';
@@ -32,7 +38,6 @@ nameInput.addEventListener('keyup', function(event){
         checkName()
     }
 })
-
 
 function checkName(){
     myUsername = document.getElementById('name').value;
@@ -88,11 +93,27 @@ navigator.mediaDevices.getUserMedia({
     let input = document.getElementById('input')
     input.addEventListener('keyup', function(event){
         event.preventDefault()
-        if(event.key === 13 || event.key === 'Enter'){
+        if(event.key === 'Enter'){
             if(input.value != ''){
                 socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
+                socket.emit('stoppedTyping', myUsername);
+                isTyping = false
+                clearTimeout(timeout)
                 input.value = ''
             }
+        } else if(input.value == ''){
+            socket.emit('stoppedTyping', myUsername);
+            isTyping = false
+            clearTimeout(timeout)
+        } else{
+            if(isTyping == false) {
+                isTyping = true
+                socket.emit('startedTyping', myUsername);
+                timeout = setTimeout(timeoutFunction, 5000);
+              } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(timeoutFunction, 5000);
+              }
         }
     })
 
@@ -100,24 +121,33 @@ navigator.mediaDevices.getUserMedia({
         let chat = document.getElementById('chat')
         let msg = document.createElement('p')
         let username = document.createElement('span')
+
+        msg.classList.add('animate__animated')
+        username.classList.add('animate__animated')
+
         if(message.userId == myUserId){
-            msg.className = 'my-message'
-            username.className = 'my-username'
+            msg.classList.add('my-message')
+            username.classList.add('my-username')
             username.innerHTML = 'You'
+            msg.classList.add('animate__fadeInRight')
+            username.classList.add('animate__fadeInRight')
         } else{
             username.innerHTML = message.userName
+            msg.classList.add('animate__fadeInLeft')
+            username.classList.add('animate__fadeInLeft')
         }
         msg.innerHTML = message.value
         msg.classList.add(message.userId)
 
-        let lastMsg = document.getElementById('chat').lastChild;
+        let lastMsg = document.getElementById('chat').lastChild.previousSibling.previousSibling;
+        console.log(lastMsg)
         if(!lastMsg.classList.contains(message.userId)){
-            chat.append(username)
+            chat.insertBefore(username, isTypingMsg)
         } else{
             msg.classList.add('followup-msg')
         }
-
-        chat.append(msg)
+        
+        chat.insertBefore(msg, isTypingMsg)
         scrollToBottom()
     })
 
@@ -126,7 +156,7 @@ navigator.mediaDevices.getUserMedia({
         let servermsg = document.createElement('span')
         servermsg.className = 'server-msg'
         servermsg.innerHTML = username + ' connected'
-        chat.append(servermsg)
+        chat.insertBefore(servermsg, isTypingMsg)
     })
 
     socket.on('createDisonnectMessage', username => {
@@ -134,12 +164,48 @@ navigator.mediaDevices.getUserMedia({
         let servermsg = document.createElement('span')
         servermsg.className = 'server-msg'
         servermsg.innerHTML = username + ' disconnected'
-        chat.append(servermsg)
+        chat.insertBefore(servermsg, isTypingMsg)
+    })
+
+    socket.on('addTyper', username => {
+        typingPeers.push(username)
+        updateTypingIndicator()
+        console.log('server typing')
+    })
+
+    socket.on('removeTyper', username => {
+        let index = typingPeers.indexOf(username);
+        typingPeers.splice(index, 1);
+        updateTypingIndicator()
     })
 
 }).catch(err => {
     console.log(err)
 })
+
+function timeoutFunction(){
+    isTyping = false;
+    socket.emit('stoppedTyping', myUsername);
+  }
+
+function updateTypingIndicator(){
+    if(typingPeers.length == 0){
+        isTypingMsg.innerHTML = '';
+        isTypingMsg.style.display = 'none'
+    } else if(typingPeers.length == 1){
+        isTypingMsg.innerHTML = `<b>${typingPeers[0]}</b> is typing...`;
+        isTypingMsg.style.display = 'block'
+    } else if(typingPeers.length == 2){
+        isTypingMsg.innerHTML = `<b>${typingPeers[0]}</b> and <b>${typingPeers[1]}</b> are typing...`;
+        isTypingMsg.style.display = 'block'
+    } else if(typingPeers.length == 3){
+        isTypingMsg.innerHTML = `<b>${typingPeers[0]}</b>, <b>${typingPeers[1]}</b> and <b>${typingPeers[2]}</b> are typing...`;
+        isTypingMsg.style.display = 'block'
+    } else{
+        isTypingMsg.innerHTML = `<b>Multiple people</b> are typing...`;
+        isTypingMsg.style.display = 'block'
+    }
+}
 
 socket.on('user-disconnected', userId => {
     console.log('User disconnected: ' + userId);
@@ -156,6 +222,9 @@ function sendMessage(){
     if(input.value != ''){
         socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
         input.value = ''
+        isTyping = false
+        socket.emit('stoppedTyping', myUsername)
+        clearTimeout(timeout)
     }
 }
 
