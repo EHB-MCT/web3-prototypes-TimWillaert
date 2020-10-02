@@ -74,8 +74,8 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
     if(mics.length > 0) userHasAudio = true
 }).then(
     navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
+        video: userHasCamera,
+        audio: userHasAudio
     }).then(stream => {
     
         //WEBCAM AND AUDIO ENABLED
