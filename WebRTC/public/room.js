@@ -72,7 +72,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
 
     if(cams.length > 0) userHasCamera = true
     if(mics.length > 0) userHasAudio = true
-}).then(
+}).then(() => {
     navigator.mediaDevices.getUserMedia({
         video: userHasCamera,
         audio: userHasAudio
@@ -216,7 +216,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
         console.log(err)
     
     })
-)
+})
 
 function timeoutFunction(){
     isTyping = false;
