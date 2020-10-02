@@ -82,9 +82,13 @@ navigator.mediaDevices.getUserMedia({
 
     myPeer.on('call', call => {
         call.answer(stream)
+        peers[call.peer] = call
         const video = document.createElement('video')
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
+        })
+        call.on('close', () => {
+            video.remove()
         })
     })
 
@@ -186,7 +190,6 @@ navigator.mediaDevices.getUserMedia({
     
     //NO DEVICES OR NO PERMISSION
 
-
 })
 
 function timeoutFunction(){
@@ -215,7 +218,7 @@ function updateTypingIndicator(){
 
 socket.on('user-disconnected', userId => {
     console.log('User disconnected: ' + userId);
-    peers[userId].close()
+    if(peers[userId]) peers[userId].close()
 })
 
 myPeer.on('open', id => {
@@ -248,14 +251,9 @@ function connectToNewUser(userId, stream){
     const call = myPeer.call(userId, stream)
     console.log(peers)
     const video = document.createElement('video')
-    let streamIncoming = false
     call.on('stream', userVideoStream => {
-        streamIncoming = true
         addVideoStream(video, userVideoStream)
     })
-    setTimeout(() => {
-        if(!streamIncoming) addVideoStream(video, emptyStream)
-    }, 5000)
     call.on('close', () => {
         console.log('call closed')
         video.remove()
