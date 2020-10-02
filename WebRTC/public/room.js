@@ -27,6 +27,11 @@ let timeout = undefined
 
 let gotUserMedia = false
 
+let userHasCamera = false
+let userHasAudio = false
+
+let emptyStream = new MediaStream()
+
 document.getElementById('container').style.display = 'none';
 document.getElementById('unmute').style.display = 'none';
 document.getElementById('showVideo').style.display = 'none';
@@ -54,143 +59,164 @@ function checkName(){
             }, 500)
             socket.emit('connect-message', myUsername)
         } else{
-            document.getElementById('error').innerHTML = 'No devices found or permission denied. Refresh to apply changes.'
+            document.getElementById('error').innerHTML = 'Camera or microphone permission denied. Grant permission and refresh page to apply changes.'
         }
     } else{
         document.getElementById('name').style.borderBottomColor = 'rgba(245, 37, 37, 0.603)';
     }
 }
 
-navigator.mediaDevices.getUserMedia({
-    video: true,
-    audio: true
-}).then(stream => {
+navigator.mediaDevices.enumerateDevices().then(devices => {
+    var cams = devices.filter(device => device.kind == "videoinput");
+    var mics = devices.filter(device => device.kind == "audioinput");
 
-    //WEBCAM AND AUDIO ENABLED
+    if(cams.length > 0) userHasCamera = true
+    if(mics.length > 0) userHasAudio = true
+}).then(
+    navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+    
+        //WEBCAM AND AUDIO ENABLED
+    
+        gotUserMedia = true
 
-    gotUserMedia = true
-
-    let video = document.createElement('video')
-    video.id = 'previewVideo'
-    video.srcObject = stream
-    video.autoplay = true
-    video.muted = true
-    document.getElementById('setup').append(video)
-
-    myVideoStream = stream;
-    addVideoStream(myVideo, stream)
-
-    myPeer.on('call', call => {
-        call.answer(stream)
-        peers[call.peer] = call
-        const video = document.createElement('video')
-        call.on('stream', userVideoStream => {
-            addVideoStream(video, userVideoStream)
-        })
-        call.on('close', () => {
-            video.remove()
-        })
-    })
-
-    socket.on('user-connected', userId => {
-        console.log('User connected: ' + userId)
-        connectToNewUser(userId, stream)
-    })
-
-    let input = document.getElementById('input')
-    input.addEventListener('keyup', function(event){
-        event.preventDefault()
-        if(event.key === 'Enter'){
-            if(input.value != ''){
-                socket.emit('stoppedTyping', myUsername);
-                socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
-                isTyping = false
-                clearTimeout(timeout)
-                input.value = ''
-            }
-        } else if(input.value == ''){
-            socket.emit('stoppedTyping', myUsername);
-            isTyping = false
-            clearTimeout(timeout)
+        if(userHasCamera){
+            let video = document.createElement('video')
+            video.id = 'previewVideo'
+            video.srcObject = stream
+            video.autoplay = true
+            video.muted = true
+            document.getElementById('setup').append(video)
         } else{
-            if(isTyping == false) {
-                isTyping = true
-                socket.emit('startedTyping', myUsername);
-                timeout = setTimeout(timeoutFunction, 5000);
-              } else {
-                clearTimeout(timeout);
-                timeout = setTimeout(timeoutFunction, 5000);
-              }
+            document.getElementById('videoBtn').style.display = 'none'
         }
-    })
 
-    socket.on('createMessage', message => {
-        let chat = document.getElementById('chat')
-        let msg = document.createElement('p')
-        let username = document.createElement('span')
-
-        msg.classList.add('animate__animated')
-        username.classList.add('animate__animated')
-
-        if(message.userId == myUserId){
-            msg.classList.add('my-message')
-            username.classList.add('my-username')
-            username.innerHTML = 'You'
-            msg.classList.add('animate__fadeInRight')
-            username.classList.add('animate__fadeInRight')
-        } else{
-            username.innerHTML = message.userName
-            msg.classList.add('animate__fadeInLeft')
-            username.classList.add('animate__fadeInLeft')
+        if(!userHasAudio){
+            document.getElementById('audioBtn').style.display = 'none'
         }
-        msg.innerHTML = message.value
-        msg.classList.add(message.userId)
 
-        let lastMsg = document.getElementById('chat').lastChild.previousSibling.previousSibling;
-
-        if(!lastMsg.classList.contains(message.userId)){
-            chat.insertBefore(username, isTypingMsg)
+        if(userHasCamera || userHasAudio){
+            myVideoStream = stream;
         } else{
-            msg.classList.add('followup-msg')
+            myVideoStream = emptyStream;
         }
         
-        chat.insertBefore(msg, isTypingMsg)
-        scrollToBottom()
-    })
-
-    socket.on('createConnectMessage', username => {
-        let chat = document.getElementById('chat')
-        let servermsg = document.createElement('span')
-        servermsg.className = 'server-msg'
-        servermsg.innerHTML = username + ' connected'
-        chat.insertBefore(servermsg, isTypingMsg)
-    })
-
-    socket.on('createDisonnectMessage', username => {
-        let chat = document.getElementById('chat')
-        let servermsg = document.createElement('span')
-        servermsg.className = 'server-msg'
-        servermsg.innerHTML = username + ' disconnected'
-        chat.insertBefore(servermsg, isTypingMsg)
-    })
-
-    socket.on('addTyper', username => {
-        typingPeers.push(username)
-        updateTypingIndicator()
-        console.log('server typing')
-    })
-
-    socket.on('removeTyper', username => {
-        let index = typingPeers.indexOf(username);
-        typingPeers.splice(index, 1);
-        updateTypingIndicator()
-    })
-
-}).catch(err => {
+        addVideoStream(myVideo, myVideoStream)
     
-    //NO DEVICES OR NO PERMISSION
-
-})
+        myPeer.on('call', call => {
+            call.answer(myVideoStream)
+            peers[call.peer] = call
+            const video = document.createElement('video')
+            call.on('stream', userVideoStream => {
+                addVideoStream(video, userVideoStream)
+            })
+            call.on('close', () => {
+                video.remove()
+            })
+        })
+    
+        socket.on('user-connected', userId => {
+            console.log('User connected: ' + userId)
+            connectToNewUser(userId, myVideoStream)
+        })
+    
+        let input = document.getElementById('input')
+        input.addEventListener('keyup', function(event){
+            event.preventDefault()
+            if(event.key === 'Enter'){
+                if(input.value != ''){
+                    socket.emit('stoppedTyping', myUsername);
+                    socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
+                    isTyping = false
+                    clearTimeout(timeout)
+                    input.value = ''
+                }
+            } else if(input.value == ''){
+                socket.emit('stoppedTyping', myUsername);
+                isTyping = false
+                clearTimeout(timeout)
+            } else{
+                if(isTyping == false) {
+                    isTyping = true
+                    socket.emit('startedTyping', myUsername);
+                    timeout = setTimeout(timeoutFunction, 5000);
+                  } else {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(timeoutFunction, 5000);
+                  }
+            }
+        })
+    
+        socket.on('createMessage', message => {
+            let chat = document.getElementById('chat')
+            let msg = document.createElement('p')
+            let username = document.createElement('span')
+    
+            msg.classList.add('animate__animated')
+            username.classList.add('animate__animated')
+    
+            if(message.userId == myUserId){
+                msg.classList.add('my-message')
+                username.classList.add('my-username')
+                username.innerHTML = 'You'
+                msg.classList.add('animate__fadeInRight')
+                username.classList.add('animate__fadeInRight')
+            } else{
+                username.innerHTML = message.userName
+                msg.classList.add('animate__fadeInLeft')
+                username.classList.add('animate__fadeInLeft')
+            }
+            msg.innerHTML = message.value
+            msg.classList.add(message.userId)
+    
+            let lastMsg = document.getElementById('chat').lastChild.previousSibling.previousSibling;
+    
+            if(!lastMsg.classList.contains(message.userId)){
+                chat.insertBefore(username, isTypingMsg)
+            } else{
+                msg.classList.add('followup-msg')
+            }
+            
+            chat.insertBefore(msg, isTypingMsg)
+            scrollToBottom()
+        })
+    
+        socket.on('createConnectMessage', username => {
+            let chat = document.getElementById('chat')
+            let servermsg = document.createElement('span')
+            servermsg.className = 'server-msg'
+            servermsg.innerHTML = username + ' connected'
+            chat.insertBefore(servermsg, isTypingMsg)
+        })
+    
+        socket.on('createDisonnectMessage', username => {
+            let chat = document.getElementById('chat')
+            let servermsg = document.createElement('span')
+            servermsg.className = 'server-msg'
+            servermsg.innerHTML = username + ' disconnected'
+            chat.insertBefore(servermsg, isTypingMsg)
+        })
+    
+        socket.on('addTyper', username => {
+            typingPeers.push(username)
+            updateTypingIndicator()
+            console.log('server typing')
+        })
+    
+        socket.on('removeTyper', username => {
+            let index = typingPeers.indexOf(username);
+            typingPeers.splice(index, 1);
+            updateTypingIndicator()
+        })
+    
+    }).catch(err => {
+        
+        console.log(err)
+    
+    })
+)
 
 function timeoutFunction(){
     isTyping = false;
