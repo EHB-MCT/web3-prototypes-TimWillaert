@@ -378,3 +378,7 @@ span{
     background-color: rgba(0, 0, 0, 0) !important;
     padding-bottom: 20px;
 }
+
+#previewVideo{
+    margin-top: 50px;
+}

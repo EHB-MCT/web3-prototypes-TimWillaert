@@ -24,7 +24,6 @@
             <input type="text" id="name" placeholder="Chuck N.">
             <button onclick="checkName()">Join call <i class="fas fa-long-arrow-alt-right" style="margin-left: 10px;"></i></button>
         </div>
-        <p id="error"></p>
     </div>
     <div id="aicontainer">
         <div class="aipopup">
@@ -49,11 +48,11 @@
                 </div>
                 <div id="video-grid"></div>
                 <div class="controls">
-                    <div onclick="toggleMute()">
+                    <div onclick="toggleMute()" id="audioBtn">
                         <i class="fas fa-microphone fa-lg" id="mute"></i>
                         <i class="fas fa-microphone-slash fa-lg" id="unmute"></i>
                     </div>   
-                    <div onclick="toggleVideo()">
+                    <div onclick="toggleVideo()" id="videoBtn">
                         <i class="fas fa-video fa-lg" id="hideVideo"></i>
                         <i class="fas fa-video-slash fa-lg" id="showVideo"></i>
                     </div>
