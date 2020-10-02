@@ -106,6 +106,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
         addVideoStream(myVideo, myVideoStream)
     
         myPeer.on('call', call => {
+            console.log('call', call)
             if(userHasCamera || userHasAudio){
                 call.answer(stream)
             } else{
@@ -114,6 +115,7 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
             peers[call.peer] = call
             const video = document.createElement('video')
             call.on('stream', userVideoStream => {
+                console.log('stream', userVideoStream)
                 addVideoStream(video, userVideoStream)
             })
             call.on('close', () => {
