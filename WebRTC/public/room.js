@@ -8,7 +8,15 @@ const videoGrid = document.getElementById('video-grid')
 const roomCode = document.getElementById('room-code')
 roomCode.innerHTML = ROOM_ID
 
-const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443})
+const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443, config: {'iceServers': [
+    { url: 'stun:stun.ekiga.net' },
+    { url: 'stun:stun1.l.google.com:19302' },
+    { url: 'stun:stun2.l.google.com:19302' },
+    { url: 'stun:stun3.l.google.com:19302' },
+    { url: 'stun:stun4.l.google.com:19302' },
+    { url: 'stun:stun01.sipphone.com' },
+    { url: 'stun:stun.l.google.com:19302' }
+]}})
 
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -274,7 +282,9 @@ function addVideoStream(video, stream){
     video.autoplay = true
     video.poster = 'profile.png'
     videoGrid.append(video)
-    video.play()
+    video.addEventListener('loadedmetadata', () => {
+        video.play()
+    })
 }
 
 function connectToNewUser(userId, stream){
