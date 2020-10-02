@@ -92,8 +92,8 @@ navigator.mediaDevices.getUserMedia({
         event.preventDefault()
         if(event.key === 'Enter'){
             if(input.value != ''){
-                socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
                 socket.emit('stoppedTyping', myUsername);
+                socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
                 isTyping = false
                 clearTimeout(timeout)
                 input.value = ''
@@ -137,7 +137,7 @@ navigator.mediaDevices.getUserMedia({
         msg.classList.add(message.userId)
 
         let lastMsg = document.getElementById('chat').lastChild.previousSibling.previousSibling;
-        console.log(lastMsg)
+
         if(!lastMsg.classList.contains(message.userId)){
             chat.insertBefore(username, isTypingMsg)
         } else{
@@ -309,7 +309,7 @@ navigator.mediaDevices.getUserMedia({
             })
             setTimeout(() => {
                 if(!streamIncoming) addVideoStream(video, emptyStream)
-            }, 1000)
+            }, 5000)
         })
 
         socket.on('user-connected', userId => {
@@ -473,7 +473,7 @@ function connectToNewUser(userId, stream){
     })
     setTimeout(() => {
         if(!streamIncoming) addVideoStream(video, emptyStream)
-    }, 1000)
+    }, 5000)
     call.on('close', () => {
         video.remove()
     })
