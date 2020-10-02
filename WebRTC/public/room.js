@@ -274,9 +274,7 @@ function addVideoStream(video, stream){
     video.autoplay = true
     video.poster = 'profile.png'
     videoGrid.append(video)
-    video.addEventListener('loadedmetadata', () => {
-        video.play()
-    })
+    video.play()
 }
 
 function connectToNewUser(userId, stream){
