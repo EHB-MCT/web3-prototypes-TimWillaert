@@ -8,15 +8,7 @@ const videoGrid = document.getElementById('video-grid')
 const roomCode = document.getElementById('room-code')
 roomCode.innerHTML = ROOM_ID
 
-const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443, config: {'iceServers': [
-    { url: 'stun:stun.ekiga.net' },
-    { url: 'stun:stun1.l.google.com:19302' },
-    { url: 'stun:stun2.l.google.com:19302' },
-    { url: 'stun:stun3.l.google.com:19302' },
-    { url: 'stun:stun4.l.google.com:19302' },
-    { url: 'stun:stun01.sipphone.com' },
-    { url: 'stun:stun.l.google.com:19302' }
-]}})
+const myPeer = new Peer({host:'peerjs-server.herokuapp.com', secure:true, port:443})
 
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -141,20 +133,20 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
             event.preventDefault()
             if(event.key === 'Enter'){
                 if(input.value != ''){
-                    socket.emit('stoppedTyping', myUsername);
+                    socket.emit('stoppedTyping', {typingUsername: myUsername, typingUserID: myUserId});
                     socket.emit('message', {value: input.value, userId: myUserId, userName: myUsername})
                     isTyping = false
                     clearTimeout(timeout)
                     input.value = ''
                 }
             } else if(input.value == ''){
-                socket.emit('stoppedTyping', myUsername);
+                socket.emit('stoppedTyping', {typingUsername: myUsername, typingUserID: myUserId});
                 isTyping = false
                 clearTimeout(timeout)
             } else{
                 if(isTyping == false) {
                     isTyping = true
-                    socket.emit('startedTyping', myUsername);
+                    socket.emit('startedTyping', {typingUsername: myUsername, typingUserID: myUserId});
                     timeout = setTimeout(timeoutFunction, 5000);
                   } else {
                     clearTimeout(timeout);
@@ -213,14 +205,15 @@ navigator.mediaDevices.enumerateDevices().then(devices => {
             chat.insertBefore(servermsg, isTypingMsg)
         })
     
-        socket.on('addTyper', username => {
-            typingPeers.push(username)
-            updateTypingIndicator()
-            console.log('server typing')
+        socket.on('addTyper', userinfo => {
+            if(userinfo.typingUserID !== myUserId){
+                typingPeers.push(userinfo.typingUsername)
+                updateTypingIndicator()
+            }
         })
     
-        socket.on('removeTyper', username => {
-            let index = typingPeers.indexOf(username);
+        socket.on('removeTyper', userinfo => {
+            let index = typingPeers.indexOf(userinfo.typingUsername);
             typingPeers.splice(index, 1);
             updateTypingIndicator()
         })

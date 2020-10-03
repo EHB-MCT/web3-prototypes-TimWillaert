@@ -40,12 +40,12 @@ io.on('connection', socket => {
             io.to(roomId).emit('createDisonnectMessage', username)
         })
 
-        socket.on('startedTyping', (username) => {
-            io.to(roomId).emit('addTyper', username)
+        socket.on('startedTyping', (userinfo) => {
+            io.to(roomId).emit('addTyper', userinfo)
         })
 
-        socket.on('stoppedTyping', (username) => {
-            io.to(roomId).emit('removeTyper', username)
+        socket.on('stoppedTyping', (userinfo) => {
+            io.to(roomId).emit('removeTyper', userinfo)
         })
     
         socket.on('disconnect', () => {
