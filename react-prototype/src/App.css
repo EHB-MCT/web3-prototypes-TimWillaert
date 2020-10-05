@@ -136,3 +136,26 @@ li:hover .operations{
 .delete:hover{
   background-color: rgba(206, 168, 168, 0.815) !important;
 }
+
+.deleted{
+  animation: delete 0.5s ease;
+}
+
+@keyframes delete{
+  0%{
+    
+  }
+  100%{
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+.completed .operations{
+  opacity: 0 !important;
+}
+
+.completed{
+  opacity: 0.4;
+  text-decoration: line-through;
+}
