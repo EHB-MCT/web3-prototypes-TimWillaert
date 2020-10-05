@@ -23,7 +23,7 @@ namespace NETCore.Controllers
         }
 
         [HttpGet("multiply")]
-        public IActionResult getMultiply([FromQuery]long number)
+        public IActionResult Multiply([FromQuery]long number)
         {
             long result = number * number;
             return new OkObjectResult(new Result{result = result});
@@ -37,6 +37,15 @@ namespace NETCore.Controllers
                 ContentType = "text/html",
                 Content = "<h1>Hey</h1><h2>Hoi</h2>"
             };
+        }
+
+        [HttpPost("save")]
+        public async Task Save([FromQuery]string input)
+        {
+            using (StreamWriter writer = System.IO.File.AppendText("log.txt"))
+            {
+                writer.WriteLine(input.Trim('"'));
+            }
         }
 
     }

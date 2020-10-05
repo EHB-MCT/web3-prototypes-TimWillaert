@@ -10,6 +10,4 @@ using Microsoft.EntityFrameworkCore;
             : base(options)
         {
         }
-
-        public DbSet<ApiItem> ApiItem { get; set; }
     }
