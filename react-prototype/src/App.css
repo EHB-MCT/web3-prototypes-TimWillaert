@@ -1,0 +1,138 @@
+body {
+  background-color: rgb(241, 241, 241);
+}
+
+.App{
+  margin: 0 auto;
+  margin-top: 100px;
+  padding-bottom: 100px;
+}
+
+.App-Header{
+  text-align: center;
+}
+
+h1{
+  margin-bottom: 50px;
+}
+
+input{
+  background-color: rgb(241, 241, 241);
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  border-bottom: 2px solid rgb(182, 182, 182);
+  padding: 0px 0px 10px 0px;
+}
+
+input:focus{
+  outline: none;
+}
+
+ul{
+  list-style-type: none;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 0;
+  width: 40%;
+}
+
+li{
+  background-color: rgb(224, 224, 224);
+  padding: 30px;
+  border-radius: 7px;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+button{
+  margin-left: 20px;
+  background-color: rgb(224, 224, 224);
+  border: none;
+  font-size: 1.3rem;
+  height: 100%;
+  padding: 15px 20px;
+  border-radius: 7px;
+  color: rgb(109, 109, 109);
+}
+
+button:focus{
+  outline: none;
+}
+
+button:hover{
+  background-color: rgb(228, 228, 228);
+  cursor: pointer;
+}
+
+svg{
+  margin-right: 10px;
+  color:rgb(129, 129, 129);
+}
+
+li:hover .operations{
+  transform: translateX(-5%);
+  opacity: 1;
+  transition: 0.5s ease;
+}
+
+.operations{
+  display: flex;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+.operations div{
+  padding: 20px;
+  border-radius: 50%;
+  background-color:  rgb(190, 190, 190);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.operations div:last-child{
+  padding: 20px 22px;
+}
+
+.operations div:hover{
+  cursor: pointer;
+}
+
+.operations svg{
+  margin: 0 !important;
+}
+
+.complete:hover svg{
+  color: rgb(25, 155, 25) !important;
+}
+
+.complete:hover{
+  background-color: rgba(168, 206, 168, 0.815) !important;
+}
+
+.delete:hover svg{
+  color: rgb(206, 22, 22) !important;
+}
+
+.delete:hover{
+  background-color: rgba(206, 168, 168, 0.815) !important;
+}
