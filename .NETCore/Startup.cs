@@ -27,9 +27,10 @@ namespace _NETCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<TodoContext>(opt =>
-               opt.UseInMemoryDatabase("TodoList"));
             services.AddControllers();
+
+            services.AddDbContext<ApiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ApiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
