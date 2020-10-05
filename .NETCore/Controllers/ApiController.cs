@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _NETCore.Models;
+using System.IO;
+using System.Net.Http;
 
 namespace NETCore.Controllers
 {
@@ -26,5 +28,16 @@ namespace NETCore.Controllers
             long result = number * number;
             return new OkObjectResult(new Result{result = result});
         }
+
+        [HttpGet("index")]
+        public ContentResult Index()
+        {
+            return new ContentResult 
+            {
+                ContentType = "text/html",
+                Content = "<h1>Hey</h1><h2>Hoi</h2>"
+            };
+        }
+
     }
 }

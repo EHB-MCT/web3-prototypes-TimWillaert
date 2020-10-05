@@ -41,6 +41,8 @@ namespace _NETCore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
