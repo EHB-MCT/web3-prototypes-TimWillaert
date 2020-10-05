@@ -285,6 +285,7 @@ function connectToNewUser(userId, stream){
     console.log(peers)
     const video = document.createElement('video')
     call.on('stream', userVideoStream => {
+        console.log('streaming ' + userId)
         addVideoStream(video, userVideoStream)
     })
     call.on('close', () => {

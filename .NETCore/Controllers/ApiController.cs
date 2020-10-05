@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using _NETCore.Models;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace NETCore.Controllers
 {
@@ -42,7 +43,7 @@ namespace NETCore.Controllers
         [HttpPost("save")]
         public async Task Save([FromQuery]string input)
         {
-            using (StreamWriter writer = System.IO.File.AppendText("log.txt"))
+            await using (StreamWriter writer = System.IO.File.AppendText("log.txt"))
             {
                 writer.WriteLine(input.Trim('"'));
             }
