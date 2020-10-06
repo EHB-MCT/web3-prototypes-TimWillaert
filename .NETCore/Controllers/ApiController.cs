@@ -9,6 +9,7 @@ using _NETCore.Models;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NETCore.Controllers
 {
@@ -18,9 +19,12 @@ namespace NETCore.Controllers
     {
         private readonly ApiContext _context;
 
-        public ApiController(ApiContext context)
+        private IHostingEnvironment _env;
+
+        public ApiController(ApiContext context, IHostingEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         [HttpGet("multiply")]
@@ -39,6 +43,14 @@ namespace NETCore.Controllers
                 Content = "<h1>Hey</h1><h2>Hoi</h2>"
             };
         }
+
+        // [HttpGet("index")]
+        // public ActionResult<String> Index()
+        // {
+        //     var webRoot = _env.WebRootPath;
+        //     var fileContent = System.IO.File.ReadAllText(webRoot + "/index.html");
+        //     return fileContent;
+        // }
 
         [HttpPost("save")]
         public async Task Save([FromQuery]string input)
