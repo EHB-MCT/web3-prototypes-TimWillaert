@@ -138,12 +138,15 @@ li:hover .operations{
 }
 
 .deleted{
-  animation: delete 0.5s ease;
+  animation: delete 0.3s ease forwards !important;
 }
 
 @keyframes delete{
   0%{
-    
+    transform: translateX(0%);
+    opacity: 1;
+    background-color: rgba(224, 224, 224, 0.253);
+    color: rgba(0, 0, 0, 0.39);
   }
   100%{
     transform: translateX(50%);
@@ -151,11 +154,23 @@ li:hover .operations{
   }
 }
 
-.completed .operations{
+@keyframes complete{
+  0%{
+    background-color: rgb(224, 224, 224);
+    color: black;
+  }
+  100%{
+    background-color: rgba(224, 224, 224, 0.253);
+    color: rgba(0, 0, 0, 0.39);
+  }
+}
+
+.completed .complete{
   opacity: 0 !important;
+  pointer-events: none;
 }
 
 .completed{
-  opacity: 0.4;
   text-decoration: line-through;
+  animation: complete 0.3s ease forwards;
 }

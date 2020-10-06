@@ -4,8 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+var classNames = require('classnames');
 
 class App extends React.Component {
+
+  componentDidMount(){
+    document.title = 'To Do List'
+  }
+
   constructor(props){
     super(props)
     this.state = {todos: [], value: ''}
@@ -17,9 +23,9 @@ class App extends React.Component {
 
   handleEnter = (event) => {
     if(this.state.value != '' && event.key == 'Enter'){
-      const newItem = this.state.value
+      const newItem = {value: this.state.value, completed: false}
       const newList = this.state.todos
-      newList.push(newItem)
+      newList.unshift(newItem)
       this.setState({todos: newList, value: ''})
     }
   }
@@ -27,9 +33,9 @@ class App extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if(this.state.value != ''){
-      const newItem = this.state.value
+      const newItem = {value: this.state.value, completed: false}
       const newList = this.state.todos
-      newList.push(newItem)
+      newList.unshift(newItem)
       this.setState({todos: newList, value: ''})
     }
   }
@@ -37,6 +43,28 @@ class App extends React.Component {
   handleDelete = (index) => {
     const newList = this.state.todos
     newList.splice(index, 1)
+    this.setState({todos: newList})
+  }
+
+  handleComplete = (index) => {
+    const newList = Array.from(this.state.todos)
+
+    let lastCompleted = newList.find(obj => obj.completed == true);
+
+    const newItem = newList[index]
+    newItem.completed = true
+
+    if(index + 1 == newList.length){
+      newList[index] = newItem
+    } else if(lastCompleted != undefined){
+      newList.splice(index, 1)
+      let newIndex = newList.indexOf(lastCompleted)
+      newList.splice(newIndex, 0, newItem)
+    } else{
+      newList.splice(index, 1)
+      newList.push(newItem)
+    }
+
     this.setState({todos: newList})
   }
 
@@ -48,14 +76,14 @@ class App extends React.Component {
           <input type="text" value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleEnter} placeholder="To do.."></input>
           <button onClick={this.handleSubmit}><FontAwesomeIcon icon={faPlus} /> Add item</button>
         </div>
-          <TodoList list={this.state.todos} deleteMethod={this.handleDelete}></TodoList>
+          <TodoList list={this.state.todos} deleteMethod={this.handleDelete} completeMethod={this.handleComplete}></TodoList>
       </div>
     )
   }
 }
 
 function TodoList(props){
-  const list = props.list.map((item, index) => <TodoItem key={index} index={index} value={item} deleteMethod={props.deleteMethod}/>)
+  const list = props.list.map((item, index) => <TodoItem key={index} index={index} item={item} deleteMethod={props.deleteMethod} completeMethod={props.completeMethod}/>)
   return(<ul>{list}</ul>)
 }
 
@@ -63,7 +91,7 @@ class TodoItem extends React.Component{
 
   constructor(props){
     super(props)
-    this.state = ({deleted: false, completed: false})
+    this.state = ({deleted: false})
   }
 
   handleDelete = () => {
@@ -71,17 +99,21 @@ class TodoItem extends React.Component{
     setTimeout(() => {
       this.setState({deleted: false})
       this.props.deleteMethod(this.props.index)
-    }, 500)
+    }, 300)
   }
 
   handleComplete = () => {
-    this.setState({completed: true})
+    this.props.completeMethod(this.props.index)
   }
 
   render(){
+    var classes = classNames({
+      'deleted': this.state.deleted,
+      'completed': this.props.item.completed
+    })
     return(
-    <li className= {this.state.deleted ? "deleted" : "", this.state.completed ? "completed" : ""}>
-      {this.props.value}
+    <li className={classes}>
+      {this.props.item.value}
       <div className="operations">
         <div className="complete" onClick={this.handleComplete}>
           <FontAwesomeIcon icon={faCheck} />
