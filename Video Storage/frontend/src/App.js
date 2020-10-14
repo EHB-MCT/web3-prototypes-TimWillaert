@@ -4,14 +4,14 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-const filesize = window.filesize;
+import FileList from './components/FileList';
+import VideoList from './components/VideoList';
 
 class App extends React.Component {
 
   componentDidMount(){
     document.title = 'Video Storage'
+    this.updateVideos();
   }
 
   constructor(props){
@@ -19,7 +19,8 @@ class App extends React.Component {
     this.state = {
       choosingFiles: false,
       chosenFiles: [],
-      uploading: false
+      uploading: false,
+      videos: []
     }
   }
 
@@ -37,6 +38,17 @@ class App extends React.Component {
     
   }
 
+  updateVideos = () => {
+    axios.get('http://localhost:8000/getVideos')
+    .then((resp) => {
+      this.setState({videos: resp.data})
+      console.log(this.state.videos)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   uploadFilesHandler = () => {
     this.setState({
       uploading: true
@@ -49,7 +61,7 @@ class App extends React.Component {
 
       data.append('file', newList[i].file)
   
-      axios.post("http://localhost:8000/upload", data, { 
+      axios.post("http://localhost:8000/uploadVideo", data, { 
         onUploadProgress: ProgressEvent => {
           const updatedProgress = newList[i];
           updatedProgress.progress = (ProgressEvent.loaded / ProgressEvent.total*100)
@@ -62,6 +74,7 @@ class App extends React.Component {
         const isFinished = (value) => value.progress == 100
         if(this.state.chosenFiles.every(isFinished)){
           setTimeout(() => {
+            this.updateVideos();
             this.setState({
               choosingFiles: false,
               chosenFiles: [],
@@ -98,7 +111,7 @@ class App extends React.Component {
                   startIcon={<AddIcon />}
                 >
                   Add files
-                  <input type="file" multiple name="file" className="fileupload" onInput={this.chooseFileHandler} onClick={(event) => event.target.value = null}/>
+                  <input type="file" multiple accept="video/*" name="file" className="fileupload" onInput={this.chooseFileHandler} onClick={(event) => event.target.value = null}/>
                 </Button>
               </div>
               <hr/>
@@ -145,47 +158,12 @@ class App extends React.Component {
           </div>
           <hr></hr>
           <div className="content">
-
+            <VideoList list={this.state.videos} updateFunction={this.updateVideos} />
           </div>
         </div>
       </div>
     );
   }
-}
-
-function FileList(props){
-  const list = props.list.map((item, index) => <File key={index} index={index} item={item}/>)
-  return(<ul>{list}</ul>)
-}
-
-class File extends React.Component{
-
-  constructor(props){
-    super(props)
-    this.state = ({deleted: false})
-  }
-
-  render(){
-
-    var style = {
-      width: this.props.item.progress + '%'
-    }
-
-    return(
-      <li>
-        <div className="fileName">
-          {this.props.item.file.name}
-        </div>
-        <div className="fileSize">
-          {filesize(this.props.item.file.size)}
-        </div>
-        <div className="fileProgress">
-          <span style={style} className={ this.props.item.progress == 100 ? 'greenFile' : '' }></span>
-        </div>
-      </li>
-    )
-  }
-
 }
 
 export default App;
