@@ -11,6 +11,7 @@
     "axios": "^0.20.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "^16.13.1",
+    "react-azure-mp": "^1.0.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
   },

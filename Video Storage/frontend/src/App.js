@@ -6,12 +6,20 @@ import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import FileList from './components/FileList';
 import VideoList from './components/VideoList';
+import { AzureMP } from "react-azure-mp"
 
 class App extends React.Component {
+
+  interval;
 
   componentDidMount(){
     document.title = 'Video Storage'
     this.updateVideos();
+    this.interval = setInterval(this.updateVideos.bind(this), 30000);
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
   }
 
   constructor(props){
@@ -20,7 +28,9 @@ class App extends React.Component {
       choosingFiles: false,
       chosenFiles: [],
       uploading: false,
-      videos: []
+      videos: [],
+      watchingVideo: false,
+      videoUrl: ''
     }
   }
 
@@ -90,8 +100,25 @@ class App extends React.Component {
     })
   }
 
+  watchVideo = (url) => {
+    this.setState({
+      videoUrl: url,
+      watchingVideo: true
+    })
+  }
+
+  closeVideo = (e) => {
+    if(e.target.tagName == 'DIV'){
+      this.toggleVideoPlayer()
+    }
+  }
+
   toggleUploadMenu = () => {
     this.setState({choosingFiles: !this.state.choosingFiles})
+  }
+
+  toggleVideoPlayer = () => {
+    this.setState({watchingVideo: !this.state.watchingVideo})
   }
 
   render(){
@@ -144,6 +171,18 @@ class App extends React.Component {
           </div>
         }
 
+        {
+          this.state.watchingVideo == true &&
+          <div id="video" onClick={this.closeVideo}>
+            <div className="videoContainer">
+              <AzureMP
+                options={{autoplay: true, controls: true}}
+                src={[{ src: this.state.videoUrl, type: "application/vnd.ms-sstr+xml" }]}
+              />
+            </div>
+          </div>
+        }
+
         <div id="main">
           <div className="header">
             <Button
@@ -158,7 +197,7 @@ class App extends React.Component {
           </div>
           <hr></hr>
           <div className="content">
-            <VideoList list={this.state.videos} updateFunction={this.updateVideos} />
+            <VideoList list={this.state.videos} updateFunction={this.updateVideos} watchFunction={this.watchVideo} />
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Thumbnail from '../images/blank.png'
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Video extends React.Component{
 
@@ -43,7 +44,20 @@ class Video extends React.Component{
         var image = {
             height: 200,
             width: '100%',
-            objectFit: 'cover'
+            objectFit: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+        }
+        var processing = {
+            marginTop: 20
+        }
+        var flex = {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
         }
 
         let thumb;
@@ -54,9 +68,21 @@ class Video extends React.Component{
 
         return(
             <Card style={card}>
-                <CardActionArea>
+                <CardActionArea onClick={() => {
+                    if(this.props.item.urls.length >= 1) this.props.watchFunction(this.props.item.urls[1])
+                }}>
                     <CardMedia style={image} title={this.props.item.name}>
-                        <img src={this.props.item.thumbnail.data != undefined ? `data:image/jpeg;base64,${thumb}` : Thumbnail} style={image}/>
+                        {this.props.item.urls.length >= 1
+                            ? <img src={this.props.item.thumbnail.data != undefined ? `data:image/jpeg;base64,${thumb}` : Thumbnail} style={image}/>
+                            : <div style={flex}>
+                                <CircularProgress color="secondary" />
+                                <Typography variant="body2" color="textSecondary" component="p" style={processing}>
+                                    PROCESSING
+                                </Typography>
+                            </div>
+                        }
+                        
+                        
                     </CardMedia>  
                     <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -68,11 +94,11 @@ class Video extends React.Component{
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="primary" component="label">
+                    <Button size="small" color="primary" component="label" disabled={this.props.item.urls < 1}>
                         {this.props.item.thumbnail.data != undefined ? 'Change Thumbnail' : 'Set Thumbnail'}
                         <input type="file" accept="image/*" name="file" className="fileupload" onInput={this.setThumbnail} onClick={(event) => event.target.value = null}/>
                     </Button>
-                    <Button size="small" color="secondary" onClick={this.deleteVideo}>
+                    <Button size="small" color="secondary" onClick={this.deleteVideo} disabled={this.props.item.urls < 1}>
                         Delete
                     </Button>
                 </CardActions>
