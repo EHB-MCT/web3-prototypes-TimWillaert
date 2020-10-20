@@ -151,3 +151,12 @@ h2{
   width: 50%;
   height: 50%;
 }
+
+.fileDelete{
+  transition: 0.2s ease all;
+}
+
+.fileDelete:hover{
+  opacity: 0.5;
+  cursor: pointer;
+}

@@ -48,6 +48,12 @@ class App extends React.Component {
     
   }
 
+  cancelFileHandler = (index) => {
+    const newList = this.state.chosenFiles
+    newList.splice(index, 1)
+    this.setState({chosenFiles: newList})
+  }
+
   updateVideos = () => {
     axios.get('http://localhost:8000/getVideos')
     .then((resp) => {
@@ -143,7 +149,7 @@ class App extends React.Component {
               </div>
               <hr/>
               <div className="uploadFilesListContainer">
-                <FileList list={this.state.chosenFiles} />
+                <FileList list={this.state.chosenFiles} cancelFileFunction={this.cancelFileHandler} />
               </div>
               <hr/>
               <div className="uploadFilesBottomContainer">
@@ -197,7 +203,7 @@ class App extends React.Component {
           </div>
           <hr></hr>
           <div className="content">
-            <VideoList list={this.state.videos} updateFunction={this.updateVideos} watchFunction={this.watchVideo} />
+            <VideoList list={this.state.videos} updateFunction={this.updateVideos} watchFunction={this.watchVideo}/>
           </div>
         </div>
       </div>

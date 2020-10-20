@@ -1,4 +1,5 @@
 import React from 'react';
+import ClearIcon from '@material-ui/icons/Clear';
 const filesize = window.filesize;
 
 function File(props){
@@ -17,6 +18,9 @@ function File(props){
         </div>
         <div className="fileProgress">
           <span style={style} className={props.item.progress == 100 ? 'greenFile' : ''}></span>
+        </div>
+        <div className="fileDelete" onClick={() => props.cancelFileFunction(props.index)}>
+          <ClearIcon color="action"/>
         </div>
       </li>
     )
