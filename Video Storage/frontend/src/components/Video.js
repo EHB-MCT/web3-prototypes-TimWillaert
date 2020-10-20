@@ -69,7 +69,7 @@ class Video extends React.Component{
         return(
             <Card style={card}>
                 <CardActionArea onClick={() => {
-                    if(this.props.item.urls.length >= 1) this.props.watchFunction(this.props.item.urls[1])
+                    if(this.props.item.urls.length >= 1) this.props.watchFunction(this.props.item.urls[1], this.props.item.name, thumb, this.props.item.size)
                 }}>
                     <CardMedia style={image} title={this.props.item.name}>
                         {this.props.item.urls.length >= 1

@@ -134,7 +134,6 @@ app.post('/uploadVideo',function(req, res) {
       }
       let filename = __dirname + '/temp/' + req.file.originalname;
       let uniqueness = uuidv4();
-      uploadToAzure(uniqueness, filename);
       client.connect(function (err) {
         const db = client.db(dbName);
         const collection = db.collection('VideoStorage');
@@ -146,7 +145,9 @@ app.post('/uploadVideo',function(req, res) {
             urls: '',
             urlId: uniqueness
           }
-        );
+        ).then(() => {
+          uploadToAzure(uniqueness, filename);
+        });
       })
     return res.status(200).send(req.file)
     })

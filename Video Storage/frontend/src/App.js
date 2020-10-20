@@ -6,6 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import FileList from './components/FileList';
 import VideoList from './components/VideoList';
+import Typography from '@material-ui/core/Typography';
+import Thumbnail from './images/blank.png'
 import { AzureMP } from "react-azure-mp"
 
 class App extends React.Component {
@@ -30,7 +32,10 @@ class App extends React.Component {
       uploading: false,
       videos: [],
       watchingVideo: false,
-      videoUrl: ''
+      videoUrl: '',
+      videoTitle: '',
+      videoThumbnail: undefined,
+      videoSize: ''
     }
   }
 
@@ -49,9 +54,11 @@ class App extends React.Component {
   }
 
   cancelFileHandler = (index) => {
-    const newList = this.state.chosenFiles
-    newList.splice(index, 1)
-    this.setState({chosenFiles: newList})
+    if(!this.state.uploading){
+      const newList = this.state.chosenFiles
+      newList.splice(index, 1)
+      this.setState({chosenFiles: newList})
+    }
   }
 
   updateVideos = () => {
@@ -106,17 +113,24 @@ class App extends React.Component {
     })
   }
 
-  watchVideo = (url) => {
+  watchVideo = (url, title, thumbnail, size) => {
+    let thumb = undefined;
+    if(thumbnail) thumb = thumbnail.toString('base64');
     this.setState({
       videoUrl: url,
+      videoTitle: title,
+      videoThumbnail: thumb,
+      videoSize: size,
       watchingVideo: true
     })
   }
 
   closeVideo = (e) => {
-    if(e.target.tagName == 'DIV'){
-      this.toggleVideoPlayer()
-    }
+    if(e.target.id == 'video') this.toggleVideoPlayer()
+  }
+
+  closeFileChooser = (e) => {
+    if(e.target.id == 'uploadFiles') this.toggleUploadMenu()
   }
 
   toggleUploadMenu = () => {
@@ -133,7 +147,7 @@ class App extends React.Component {
 
         {
           this.state.choosingFiles == true &&
-          <div id="uploadFiles">
+          <div id="uploadFiles" onClick={this.closeFileChooser}>
             <div className="uploadFilesContainer">
               <div className="uploadFilesTopContainer">
                 <Button
@@ -180,6 +194,28 @@ class App extends React.Component {
         {
           this.state.watchingVideo == true &&
           <div id="video" onClick={this.closeVideo}>
+            <div className="videoHeader">
+              <div className="videoInfo">
+                <img src={this.state.videoThumbnail != undefined ? `data:image/jpeg;base64,${this.state.videoThumbnail}` : Thumbnail}/>
+                <div className="videoTitle">
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {this.state.videoTitle}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {this.state.videoSize}
+                  </Typography>
+                </div>
+              </div>
+              <Button
+                  disabled={this.state.uploading}
+                  onClick={this.toggleVideoPlayer}
+                  variant="contained"
+                  color="default"
+                  component="label"
+              >
+                Close
+              </Button>
+            </div>
             <div className="videoContainer">
               <AzureMP
                 options={{autoplay: true, controls: true}}

@@ -110,7 +110,7 @@ ul li:last-child{
 }
 
 .fileName{
-  width: 30%;
+  width: 35%;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -145,11 +145,43 @@ h2{
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  flex-direction: column;
 }
 
 .videoContainer{
   width: 50%;
-  height: 50%;
+}
+
+.videoHeader{
+  width: 50%;
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.videoInfo{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.videoTitle{
+  overflow: hidden;
+}
+
+.videoInfo img{
+  height: 50px;
+  margin-right: 20px;
+}
+
+.videoInfo h2{
+  margin-bottom: 0 !important;
 }
 
 .fileDelete{
