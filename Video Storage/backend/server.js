@@ -54,22 +54,27 @@ var inputExtension;
 var blobName = null;
 
 
-
-
-
-
 var express = require('express');
 var app = express();
 var multer = require('multer')
 var cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId; 
-const fileUpload = require('express-fileupload');
 const config = require('./config.json');
 const filesize = require('filesize');
 
 app.use(cors())
-//app.use(fileUpload())
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  cb(null, './temp')
+},
+  filename: function (req, file, cb) {
+  cb(null, file.originalname)
+}
+})
+
+var upload = multer({ storage: storage }).single('file')
 
 // Connection URL
 const mongourl = `mongodb://${config.dbUser}:${config.dbPassword}@172.20.0.54:27017/?authMechanism=DEFAULT&authSource=${config.dbUser}`;
@@ -94,41 +99,31 @@ app.get('/getVideos', function(req, res){
 
 })
 
-app.post('/uploadThumbnail', function(req, res){
-  console.log(req.file);
+var uploadImage = multer()
+
+app.post('/uploadThumbnail/:id', uploadImage.single('file'), function(req, res){
+  let file = req.file;
   let id = req.params.id;
   let objectid = new ObjectId(id);
 
-//   client.connect(function (err) {
-//     const db = client.db(dbName);
-//     const collection = db.collection('VideoStorage');
+  client.connect(function (err) {
+    const db = client.db(dbName);
+    const collection = db.collection('VideoStorage');
 
-//     collection.findOne({_id:objectid})
-//         .then(result => {
-//             if (result) {
-//               let updatedDocument = result;
-//               updatedDocument.thumbnail = file;
-//               collection.findOneAndReplace({_id:objectid}, updatedDocument);
-//               console.log('Succesfully added thumbnail')
-//               res.send('ok')
-//             } else {
-//               console.log("No document matches the provided query.")
-//             }
-//         })
-//         .catch(err => console.error(`Failed to find document: ${err}`))
-// })
+    collection.findOne({_id:objectid})
+        .then(result => {
+            if (result) {
+              let updatedDocument = result;
+              updatedDocument.thumbnail = file;
+              collection.findOneAndReplace({_id:objectid}, updatedDocument);
+              res.send('ok')
+            } else {
+              console.log("No document matches the provided query.")
+            }
+        })
+        .catch(err => console.error(`Failed to find document: ${err}`))
 })
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-  cb(null, './temp')
-},
-  filename: function (req, file, cb) {
-  cb(null, file.originalname)
-}
 })
-
-var upload = multer({ storage: storage }).single('file')
 
 app.post('/uploadVideo',function(req, res) {
   

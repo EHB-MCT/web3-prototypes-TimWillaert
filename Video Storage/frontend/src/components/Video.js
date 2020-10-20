@@ -62,8 +62,8 @@ class Video extends React.Component{
 
         let thumb;
 
-        if(this.props.item.thumbnail.data){
-            thumb = this.props.item.thumbnail.data.toString('base64')
+        if(this.props.item.thumbnail.buffer){
+            thumb = this.props.item.thumbnail.buffer.toString('base64')
         }
 
         return(
@@ -73,7 +73,7 @@ class Video extends React.Component{
                 }}>
                     <CardMedia style={image} title={this.props.item.name}>
                         {this.props.item.urls.length >= 1
-                            ? <img src={this.props.item.thumbnail.data != undefined ? `data:image/jpeg;base64,${thumb}` : Thumbnail} style={image}/>
+                            ? <img src={this.props.item.thumbnail.buffer != undefined ? `data:image/jpeg;base64,${thumb}` : Thumbnail} style={image}/>
                             : <div style={flex}>
                                 <CircularProgress color="secondary" />
                                 <Typography variant="body2" color="textSecondary" component="p" style={processing}>
@@ -95,7 +95,7 @@ class Video extends React.Component{
                 </CardActionArea>
                 <CardActions>
                     <Button size="small" color="primary" component="label" disabled={this.props.item.urls < 1}>
-                        {this.props.item.thumbnail.data != undefined ? 'Change Thumbnail' : 'Set Thumbnail'}
+                        {this.props.item.thumbnail.buffer != undefined ? 'Change Thumbnail' : 'Set Thumbnail'}
                         <input type="file" accept="image/*" name="file" className="fileupload" onInput={this.setThumbnail} onClick={(event) => event.target.value = null}/>
                     </Button>
                     <Button size="small" color="secondary" onClick={this.deleteVideo} disabled={this.props.item.urls < 1}>
