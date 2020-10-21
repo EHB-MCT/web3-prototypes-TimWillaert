@@ -192,3 +192,46 @@ h2{
   opacity: 0.5;
   cursor: pointer;
 }
+
+.videoName span{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.videoName h2{
+  margin-bottom: 1px !important;
+}
+
+.videoName svg{
+  transition: 0.2s ease all;
+  cursor: pointer;
+}
+
+.videoName svg:hover{
+  opacity: 0.5;
+}
+
+ul img{
+  transition: 0.2s ease;
+}
+
+ul img:hover{
+  opacity: 0.8;
+}
+
+input{
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.334;
+  letter-spacing: 0em;
+  border: 0;
+  border-bottom: 1px solid rgb(214, 214, 214);
+  outline: 0;
+}
+
+.actions{
+  display: flex;
+}

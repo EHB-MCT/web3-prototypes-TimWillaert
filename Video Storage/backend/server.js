@@ -125,6 +125,30 @@ app.post('/uploadThumbnail/:id', uploadImage.single('file'), function(req, res){
 })
 })
 
+app.post('/updateTitle/:id/:title', function(req, res) {
+  let id = req.params.id;
+  let title = req.params.title;
+  let objectid = new ObjectId(id);
+
+  client.connect(function (err) {
+    const db = client.db(dbName);
+    const collection = db.collection('VideoStorage');
+
+    collection.findOne({_id:objectid})
+        .then(result => {
+            if (result) {
+              let updatedDocument = result;
+              updatedDocument.name = title;
+              collection.findOneAndReplace({_id:objectid}, updatedDocument);
+              res.send('ok')
+            } else {
+              console.log("No document matches the provided query.")
+            }
+        })
+        .catch(err => console.error(`Failed to find document: ${err}`))
+  })
+})
+
 app.post('/uploadVideo',function(req, res) {
   
     upload(req, res, function (err) {

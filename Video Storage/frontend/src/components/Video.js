@@ -10,11 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import Thumbnail from '../images/blank.png'
 import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import ClearIcon from '@material-ui/icons/Clear';
 
 class Video extends React.Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            title: props.item.name,
+            editingTitle: false
+        }
     }
 
     deleteVideo = () => {
@@ -33,6 +40,21 @@ class Video extends React.Component{
             console.log(res)
             this.props.updateFunction()
         })
+    }
+
+    toggleEditing = (value) =>{
+        this.setState({editingTitle: value})
+        if(value) this.setState({title: this.props.item.name})
+    }
+
+    handleChange = (e) => {
+        this.setState({title: e.target.value})
+    }
+
+    submitTitle = () => {
+        this.props.item.name = this.state.title;
+        this.toggleEditing(false)
+        axios.post("http://localhost:8000/updateTitle/" + this.props.item._id + "/" + this.state.title);
     }
 
     render(){
@@ -83,16 +105,33 @@ class Video extends React.Component{
                         }
                         
                         
-                    </CardMedia>  
+                    </CardMedia>
+                    </CardActionArea>  
                     <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {this.props.item.name}
-                    </Typography>
+                    <div className="videoName">
+                        {
+                            this.state.editingTitle
+                            ?  <span>
+                                <input type="text" value={this.state.title} placeholder={this.props.item.name} onChange={this.handleChange}/>
+                                <div className="actions">
+                                    <SaveIcon color="action" onClick={this.submitTitle}/>
+                                    <ClearIcon color="action" onClick={() => this.toggleEditing(false)}/>
+                                </div>
+                            </span> 
+                            
+                            : <span>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                {this.props.item.name}
+                                </Typography>
+                                <EditIcon color="action" onClick={() => this.toggleEditing(true)}/>
+                            </span> 
+                               
+                        }
+                    </div>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {this.props.item.size}
                      </Typography>
                     </CardContent>
-                </CardActionArea>
                 <CardActions>
                     <Button size="small" color="primary" component="label" disabled={this.props.item.urls < 1}>
                         {this.props.item.thumbnail.buffer != undefined ? 'Change Thumbnail' : 'Set Thumbnail'}
