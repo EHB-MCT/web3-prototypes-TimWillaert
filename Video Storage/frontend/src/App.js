@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import FileList from './components/FileList';
@@ -35,7 +36,8 @@ class App extends React.Component {
       videoUrl: '',
       videoTitle: '',
       videoThumbnail: undefined,
-      videoSize: ''
+      videoSize: '',
+      isRefreshing: false
     }
   }
 
@@ -66,6 +68,17 @@ class App extends React.Component {
     .then((resp) => {
       this.setState({videos: resp.data})
       console.log(this.state.videos)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  refreshHandler = () => {
+    this.setState({isRefreshing: true});
+    axios.get('http://localhost:8000/getVideos')
+    .then((resp) => {
+      this.setState({videos: resp.data, isRefreshing: false})
     })
     .catch((err) => {
       console.log(err)
@@ -235,6 +248,16 @@ class App extends React.Component {
               startIcon={<CloudUploadIcon />}
             >
               Upload videos
+            </Button>
+            <Button
+              onClick={this.refreshHandler}
+              variant="contained"
+              color="primary"
+              component="label"
+              disabled={this.state.isRefreshing}
+              startIcon={<RefreshIcon />}
+            >
+              Refresh
             </Button>
           </div>
           <hr></hr>
