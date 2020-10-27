@@ -77,13 +77,13 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('file')
 
 // Connection URL
-const mongourl = `mongodb://${config.dbUser}:${config.dbPassword}@172.20.0.54:27017/?authMechanism=DEFAULT&authSource=${config.dbUser}`;
+const uri = `mongodb+srv://${config.dbUser}:${config.dbPassword}@finalworkcluster.bcvg7.mongodb.net/${config.dbName}?retryWrites=true&w=majority`;
 
 // Database Name
 const dbName = config.dbName;
 
 // Create a new MongoClient
-const client = new MongoClient(mongourl);
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
 app.get('/getVideos', function(req, res){
 
@@ -168,10 +168,10 @@ app.post('/uploadVideo',function(req, res) {
             thumbnail: '',
             urls: '',
             urlId: uniqueness
-          }
-        ).then(() => {
-          uploadToAzure(uniqueness, filename);
-        });
+          }, function(err, resp){
+            if(err) console.log(err)
+            uploadToAzure(uniqueness, filename);
+          })
       })
     return res.status(200).send(req.file)
     })

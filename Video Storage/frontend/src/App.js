@@ -64,14 +64,16 @@ class App extends React.Component {
   }
 
   updateVideos = () => {
-    axios.get('http://localhost:8000/getVideos')
-    .then((resp) => {
-      this.setState({videos: resp.data})
-      console.log(this.state.videos)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    if(!this.state.watchingVideo){
+      axios.get('http://localhost:8000/getVideos')
+      .then((resp) => {
+        this.setState({videos: resp.data})
+        console.log(this.state.videos)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   }
 
   refreshHandler = () => {
