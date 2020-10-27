@@ -197,8 +197,8 @@ app.put('/deleteVideo/:id', function (req, res) {
   })
 })
 
-app.listen(8000, function() {
-    console.log('Server running on port 8000');
+app.listen(process.env.PORT || 8000, function() {
+  console.log('Server running on port 8000');
 });
 
 
