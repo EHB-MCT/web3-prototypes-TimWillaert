@@ -1,10 +1,12 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
+import Sidebar from './components/Sidebar';
 
 function App() {
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const [selectedTool, setSelectedTool] = useState('pen');
   const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
@@ -46,12 +48,15 @@ function App() {
   }
 
   return (
-    <canvas 
-      onMouseDown={startDrawing}
-      onMouseUp={finishDrawing}
-      onMouseMove={draw}
-      ref={canvasRef}
-    />
+    <div>
+      <Sidebar selectedTool={selectedTool} setSelectedTool={setSelectedTool}/>
+      <canvas 
+        onMouseDown={startDrawing}
+        onMouseUp={finishDrawing}
+        onMouseMove={draw}
+        ref={canvasRef}
+      />
+    </div>
   );
 }
 
