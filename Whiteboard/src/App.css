@@ -1,3 +1,35 @@
+*{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 canvas{
   background-color: rgb(240, 240, 240);
+  border: 5px solid rgb(0, 0, 0);
+}
+
+#fadeIn{
+  position: absolute;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  animation: fadeOut 2s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeOut{
+  0%{
+      opacity: 1;
+  }
+  100%{
+      opacity: 0;
+  }
+}
+
+.draggable{
+  cursor: grab;
+}
+
+.react-draggable-dragging{
+  cursor: grabbing;
 }
