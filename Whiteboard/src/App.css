@@ -1,13 +1,14 @@
-*{
+* {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-canvas{
+canvas {
   background-color: rgb(240, 240, 240);
   border: 5px solid rgb(0, 0, 0);
+  position: relative;
 }
 
-#fadeIn{
+#fadeIn {
   position: absolute;
   z-index: 99999;
   width: 100vw;
@@ -17,19 +18,32 @@ canvas{
   pointer-events: none;
 }
 
-@keyframes fadeOut{
-  0%{
-      opacity: 1;
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
   }
-  100%{
-      opacity: 0;
+  100% {
+    opacity: 0;
   }
 }
 
-.draggable{
+.pan {
   cursor: grab;
 }
 
-.react-draggable-dragging{
+.text {
+  cursor: text;
+}
+
+.note {
+  cursor: cell;
+}
+
+.react-draggable-dragging {
   cursor: grabbing;
+}
+
+.note-container {
+  position: absolute;
+  z-index: 99999;
 }

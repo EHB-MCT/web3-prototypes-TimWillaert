@@ -1,0 +1,20 @@
+.note-container {
+  height: 200px;
+  width: 180px;
+  background-color: rgb(252, 252, 158);
+  box-sizing: border-box;
+  padding: 20px;
+  box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.178);
+}
+
+.note-container textarea {
+  max-width: 100%;
+  border: none;
+  box-sizing: border-box;
+  background-color: rgb(252, 252, 158);
+  color: black;
+  outline: 0;
+  word-wrap: break-word;
+  resize: none;
+  font-size: 11pt;
+}

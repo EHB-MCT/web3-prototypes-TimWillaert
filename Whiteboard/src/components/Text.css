@@ -1,0 +1,12 @@
+.text-container {
+  position: absolute;
+  z-index: 9999999999999;
+}
+
+input {
+  font-size: 1.2rem;
+  background: transparent;
+  border: none;
+  padding: 20px;
+  padding-right: 100px;
+}
