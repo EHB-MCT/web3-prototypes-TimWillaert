@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Note from "./components/Note";
 import Text from "./components/Text";
+import Link from "./components/Link";
 import Draggable from "react-draggable";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const canvasRef = useRef(null);
@@ -12,12 +14,15 @@ function App() {
   const [drawColor, setDrawColor] = useState("#000");
   const [selectedTool, setSelectedTool] = useState("pan");
   const [isDrawing, setIsDrawing] = useState(false);
-  const [canvasScale, setCanvasScale] = useState(1);
   const [noteList, setNoteList] = useState([]);
   const [textList, setTextList] = useState([]);
+  const [linkList, setLinkList] = useState([]);
+  const [linkStatus, setLinkStatus] = useState(0);
+  const [linkId, setLinkId] = useState(null);
 
   document.title = "Whiteboard";
 
+  //Canvas initialization
   useEffect(() => {
     const canvas = canvasRef.current;
     const parent = parentRef.current;
@@ -42,6 +47,39 @@ function App() {
     drawGrid();
   }, []);
 
+  const startLink = (nativeEvent) => {
+    setSelectedTool("link");
+    if (nativeEvent.target.type === "textarea") {
+      setLinkStatus(1);
+      setLinkId(nativeEvent.target.parentNode.id);
+    } else if (nativeEvent.target.classList.contains("note-container")) {
+      setLinkStatus(1);
+      setLinkId(nativeEvent.target.id);
+    }
+  };
+
+  const endLink = (nativeEvent) => {
+    setSelectedTool("link");
+    if (
+      nativeEvent.target.type === "textarea" ||
+      nativeEvent.target.classList.contains("note-container")
+    ) {
+      if (
+        nativeEvent.target.id !== linkId &&
+        nativeEvent.target.parentNode.id !== linkId
+      ) {
+        setLinkStatus(0);
+        setSelectedTool(null);
+        let item = {
+          id1: linkId,
+          id2: nativeEvent.target.id || nativeEvent.target.parentNode.id,
+        };
+        let list = linkList.concat(item);
+        setLinkList(list);
+      }
+    }
+  };
+
   const mouseDown = ({ nativeEvent }) => {
     switch (selectedTool) {
       case "pen":
@@ -52,6 +90,12 @@ function App() {
         break;
       case "text":
         addText(nativeEvent);
+        break;
+      case "link":
+        linkStatus === 0 ? startLink(nativeEvent) : endLink(nativeEvent);
+        break;
+      case null:
+        setSelectedTool("pan");
         break;
       default:
         break;
@@ -82,8 +126,11 @@ function App() {
     let left = canvasRef.current.style.left.split("px")[0];
     let top = canvasRef.current.style.top.split("px")[0];
     let item = {
+      id: uuid(),
       xPos: nativeEvent.offsetX + parseInt(left),
       yPos: nativeEvent.offsetY + parseInt(top),
+      updatedX: nativeEvent.offsetX + parseInt(left),
+      updatedY: nativeEvent.offsetY + parseInt(top),
     };
     let list = noteList.concat(item);
     setNoteList(list);
@@ -94,9 +141,10 @@ function App() {
     let left = canvasRef.current.style.left.split("px")[0];
     let top = canvasRef.current.style.top.split("px")[0];
     let item = {
+      id: uuid(),
+      textColor: drawColor,
       xPos: nativeEvent.offsetX + parseInt(left),
       yPos: nativeEvent.offsetY + parseInt(top),
-      textColor: drawColor,
     };
     let list = textList.concat(item);
     setTextList(list);
@@ -148,14 +196,6 @@ function App() {
     contextRef.current.stroke();
   };
 
-  const zoomCanvas = ({ nativeEvent }) => {
-    if (nativeEvent.wheelDelta > 0 && canvasScale < 1.5) {
-      setCanvasScale(canvasScale + 0.1);
-    } else if (nativeEvent.wheelDelta < 0 && canvasScale > 0.5) {
-      setCanvasScale(canvasScale - 0.1);
-    }
-  };
-
   return (
     <div>
       <div id="fadeIn"></div>
@@ -165,12 +205,19 @@ function App() {
         drawColor={drawColor}
         setDrawColor={setDrawColor}
       />
+      {selectedTool === "link" && (
+        <span id="linkStatus">
+          <div>
+            {linkStatus === 0 && <p>Select first element</p>}
+            {linkStatus === 1 && <p>Select second element</p>}
+          </div>
+        </span>
+      )}
       <div
         ref={parentRef}
         onMouseDown={mouseDown}
         onMouseUp={mouseUp}
         onMouseMove={mouseMove}
-        onWheel={zoomCanvas}
       >
         <Draggable
           disabled={selectedTool !== "pan"}
@@ -186,8 +233,11 @@ function App() {
               <Note
                 key={index}
                 item={item}
+                index={index}
                 selectedTool={selectedTool}
                 setSelectedTool={setSelectedTool}
+                noteList={noteList}
+                setNoteList={setNoteList}
               />
             ))}
             {textList.map((item, index) => (
@@ -198,6 +248,24 @@ function App() {
                 setSelectedTool={setSelectedTool}
               />
             ))}
+            <svg
+              className="svgWrapper"
+              style={{
+                width: `${window.innerWidth * 4}px`,
+                height: `${window.innerHeight * 4}px`,
+                left: `${-(window.innerWidth * 4) / 2}px`,
+                top: `${-(window.innerHeight * 4) / 2}px`,
+              }}
+            >
+              {linkList.map((item, index) => (
+                <Link
+                  key={index}
+                  item={item}
+                  noteList={noteList}
+                  canvasRef={canvasRef}
+                />
+              ))}
+            </svg>
             <canvas ref={canvasRef} className={selectedTool}></canvas>
           </div>
         </Draggable>

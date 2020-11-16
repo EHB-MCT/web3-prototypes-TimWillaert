@@ -18,3 +18,21 @@
   resize: none;
   font-size: 11pt;
 }
+
+.linking:hover {
+  background-color: rgb(255, 255, 202) !important;
+  cursor: pointer !important;
+}
+
+.linking:hover textarea {
+  background-color: rgb(255, 255, 202) !important;
+  color: rgb(170, 170, 170);
+}
+
+.linking:hover textarea::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+.pointer:hover {
+  cursor: pointer !important;
+}

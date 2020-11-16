@@ -3,17 +3,10 @@ import Draggable from "react-draggable";
 import "./Text.css";
 
 function Text(props) {
+  console.log(props);
   return (
     <div onClick={() => props.setSelectedTool(null)}>
-      <Draggable
-        disabled={props.selectedTool === "pan"}
-        bounds={{
-          top: -((window.innerHeight * 4) / 4) - 11,
-          left: -((window.innerWidth * 4) / 4) - 11,
-          right: (window.innerWidth * 4) / 2,
-          bottom: (window.innerHeight * 4) / 2,
-        }}
-      >
+      <Draggable disabled={props.selectedTool === "pan"}>
         <div
           className="text-container"
           style={{
@@ -21,6 +14,7 @@ function Text(props) {
             top: props.item.yPos,
             pointerEvents: props.selectedTool === "pen" ? "none" : "all",
           }}
+          id={props.item.id}
         >
           <input
             placeholder="Text"

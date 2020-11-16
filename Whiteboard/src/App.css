@@ -47,3 +47,27 @@ canvas {
   position: absolute;
   z-index: 99999;
 }
+
+#linkStatus {
+  position: absolute;
+  pointer-events: none;
+  z-index: 999999;
+  width: 100vw;
+  text-align: center;
+}
+
+#linkStatus div {
+  background-color: rgba(0, 0, 0, 0.541);
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 30px;
+  margin-top: 100px;
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+}
+
+.svgWrapper {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}

@@ -6,6 +6,7 @@ import PanToolIcon from "@material-ui/icons/PanTool";
 import CreateIcon from "@material-ui/icons/Create";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 import NoteIcon from "@material-ui/icons/Note";
+import LinkIcon from "@material-ui/icons/Link";
 
 function Sidebar(props) {
   const [isPickingColor, setIsPickingColor] = useState(false);
@@ -61,6 +62,10 @@ function Sidebar(props) {
       <NoteIcon
         onClick={() => props.setSelectedTool("note")}
         className={props.selectedTool === "note" ? "active" : ""}
+      />
+      <LinkIcon
+        onClick={() => props.setSelectedTool("link")}
+        className={props.selectedTool === "link" ? "active" : ""}
       />
     </div>
   );
