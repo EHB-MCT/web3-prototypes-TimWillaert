@@ -62,7 +62,9 @@ function Sidebar(props) {
       />
       <NoteIcon
         onClick={() => props.setSelectedTool("note")}
-        className={props.selectedTool === "note" ? "active" : ""}
+        className={
+          props.selectedTool === "note" ? "noteIcon active" : "noteIcon"
+        }
       />
       <LinkIcon
         onClick={() => props.setSelectedTool("link")}

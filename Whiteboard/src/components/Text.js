@@ -1,11 +1,12 @@
 import React from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Draggable from "react-draggable";
 import "./Text.css";
 import update from "immutability-helper";
 
 function Text(props) {
   const textRef = useRef(null);
+  const [value, setValue] = useState(props.item.value);
 
   const updatePosition = () => {
     const transform = textRef.current.style.transform;
@@ -19,6 +20,16 @@ function Text(props) {
       [props.index]: {
         updatedX: { $set: updatedX },
         updatedY: { $set: updatedY },
+      },
+    });
+    props.setTextList(newList);
+  };
+
+  const handleType = (event) => {
+    setValue(event.target.value);
+    const newList = update(props.textList, {
+      [props.index]: {
+        value: { $set: event.target.value },
       },
     });
     props.setTextList(newList);
@@ -65,6 +76,8 @@ function Text(props) {
                 ? "pointer"
                 : ""
             }
+            value={value}
+            onChange={handleType}
           ></input>
         </div>
       </Draggable>

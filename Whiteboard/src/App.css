@@ -72,3 +72,46 @@ canvas {
   position: absolute;
   z-index: 1;
 }
+
+#save {
+  position: absolute;
+  z-index: 9999;
+  left: 30px;
+  top: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.saveIcon {
+  background-color: white;
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.178);
+  cursor: pointer;
+}
+
+.saveIcon svg {
+  color: rgba(0, 0, 0, 0.603);
+}
+
+.saveIcon:hover svg {
+  opacity: 0.8;
+}
+
+.saveIcon:active svg {
+  color: rgb(57, 70, 255);
+}
+
+.lastSaved {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  font-size: 0.9rem;
+}
+
+.lastSaved span {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: grey;
+  margin-bottom: 5px;
+}

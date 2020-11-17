@@ -7,6 +7,8 @@ import Link from "./components/Link";
 import Draggable from "react-draggable";
 import { v4 as uuid } from "uuid";
 import update from "immutability-helper";
+import SaveIcon from "@material-ui/icons/Save";
+import moment from "moment";
 
 function App() {
   const canvasRef = useRef(null);
@@ -20,11 +22,31 @@ function App() {
   const [linkList, setLinkList] = useState([]);
   const [linkStatus, setLinkStatus] = useState(0);
   const [linkId, setLinkId] = useState(null);
+  const [lastSaved, setLastSaved] = useState(null);
 
   document.title = "Whiteboard";
 
   //Canvas initialization
   useEffect(() => {
+    const savedNotes = JSON.parse(localStorage.getItem("notes"));
+    const savedText = JSON.parse(localStorage.getItem("text"));
+
+    for (let note of savedNotes) {
+      note.xPos = note.updatedX;
+      note.yPos = note.updatedY;
+    }
+
+    for (let text of savedText) {
+      text.xPos = text.updatedX;
+      text.yPos = text.updatedY;
+    }
+
+    setNoteList(savedNotes);
+    setTextList(savedText);
+
+    setLinkList(JSON.parse(localStorage.getItem("links")) || []);
+    setLastSaved(localStorage.getItem("last-saved") || null);
+
     const canvas = canvasRef.current;
     const parent = parentRef.current;
     canvas.width = window.innerWidth * 8;
@@ -206,6 +228,7 @@ function App() {
       updatedX: nativeEvent.offsetX + parseInt(left),
       updatedY: nativeEvent.offsetY + parseInt(top),
       type: "note",
+      value: "",
     };
     let list = noteList.concat(item);
     setNoteList(list);
@@ -223,6 +246,7 @@ function App() {
       updatedX: nativeEvent.offsetX + parseInt(left),
       updatedY: nativeEvent.offsetY + parseInt(top),
       type: "text",
+      value: "",
     };
     let list = textList.concat(item);
     setTextList(list);
@@ -274,9 +298,28 @@ function App() {
     contextRef.current.stroke();
   };
 
+  const saveBoard = () => {
+    localStorage.setItem("links", JSON.stringify(linkList));
+    localStorage.setItem("notes", JSON.stringify(noteList));
+    localStorage.setItem("text", JSON.stringify(textList));
+    localStorage.setItem("last-saved", moment().format("L LTS"));
+    setLastSaved(moment().format("L LTS"));
+  };
+
   return (
     <div>
       <div id="fadeIn"></div>
+      <div id="save" onClick={saveBoard}>
+        <div className="saveIcon">
+          <SaveIcon />
+        </div>
+        {lastSaved !== null && (
+          <div className="lastSaved">
+            <span>LAST SAVED</span>
+            <p>{lastSaved}</p>
+          </div>
+        )}
+      </div>
       <Sidebar
         selectedTool={selectedTool}
         setSelectedTool={setSelectedTool}
@@ -309,7 +352,7 @@ function App() {
           <div>
             {noteList.map((item, index) => (
               <Note
-                key={index}
+                key={item.id}
                 item={item}
                 index={index}
                 selectedTool={selectedTool}
@@ -320,7 +363,7 @@ function App() {
             ))}
             {textList.map((item, index) => (
               <Text
-                key={index}
+                key={item.id}
                 item={item}
                 index={index}
                 selectedTool={selectedTool}

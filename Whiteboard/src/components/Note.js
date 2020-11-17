@@ -1,11 +1,12 @@
 import React from "react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import "./Note.css";
 import Draggable from "react-draggable";
 import update from "immutability-helper";
 
 function Note(props) {
   const noteRef = useRef(null);
+  const [value, setValue] = useState(props.item.value);
 
   const updatePosition = () => {
     const transform = noteRef.current.style.transform;
@@ -19,6 +20,16 @@ function Note(props) {
       [props.index]: {
         updatedX: { $set: updatedX },
         updatedY: { $set: updatedY },
+      },
+    });
+    props.setNoteList(newList);
+  };
+
+  const handleType = (event) => {
+    setValue(event.target.value);
+    const newList = update(props.noteList, {
+      [props.index]: {
+        value: { $set: event.target.value },
       },
     });
     props.setNoteList(newList);
@@ -65,6 +76,8 @@ function Note(props) {
                 ? "pointer"
                 : ""
             }
+            value={value}
+            onChange={handleType}
           ></textarea>
         </div>
       </Draggable>

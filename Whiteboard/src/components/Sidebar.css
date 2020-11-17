@@ -77,3 +77,8 @@
     opacity: 0;
   }
 }
+
+.noteIcon {
+  margin-top: -5px !important;
+  margin-bottom: 14px !important;
+}
