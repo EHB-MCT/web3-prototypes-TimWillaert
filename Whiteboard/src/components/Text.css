@@ -5,8 +5,14 @@
 
 input {
   font-size: 1.2rem;
-  background: transparent;
   border: none;
   padding: 20px;
   padding-right: 100px;
+  background: rgb(240, 240, 240);
+  border: 1px solid gray;
+  border-radius: 7px;
+}
+
+.text-linking:hover input {
+  background: rgb(224, 224, 224) !important;
 }

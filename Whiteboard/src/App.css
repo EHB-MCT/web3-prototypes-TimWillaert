@@ -39,8 +39,10 @@ canvas {
   cursor: cell;
 }
 
-.react-draggable-dragging {
-  cursor: grabbing;
+.react-draggable-dragging,
+.react-draggable-dragging textarea,
+.react-draggable-dragging input {
+  cursor: grabbing !important;
 }
 
 .note-container {
@@ -69,5 +71,4 @@ canvas {
 .svgWrapper {
   position: absolute;
   z-index: 1;
-  pointer-events: none;
 }

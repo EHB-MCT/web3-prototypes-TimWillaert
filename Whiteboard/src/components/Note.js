@@ -27,16 +27,22 @@ function Note(props) {
   return (
     <div
       onClick={() =>
-        props.selectedTool !== "link" ? props.setSelectedTool(null) : ""
+        props.selectedTool !== "link" && props.selectedTool !== "delete"
+          ? props.setSelectedTool(null)
+          : ""
       }
     >
       <Draggable
-        disabled={props.selectedTool === "pan" || props.selectedTool === "link"}
+        disabled={
+          props.selectedTool === "pan" ||
+          props.selectedTool === "link" ||
+          props.selectedTool === "delete"
+        }
         onDrag={updatePosition}
       >
         <div
           className={
-            props.selectedTool === "link"
+            props.selectedTool === "link" || props.selectedTool === "delete"
               ? "note-container linking"
               : "note-container"
           }
@@ -51,8 +57,14 @@ function Note(props) {
           <textarea
             placeholder="Add a note..."
             rows="10"
-            disabled={props.selectedTool === "link"}
-            className={props.selectedTool === "link" ? "pointer" : ""}
+            disabled={
+              props.selectedTool === "link" || props.selectedTool === "delete"
+            }
+            className={
+              props.selectedTool === "link" || props.selectedTool === "delete"
+                ? "pointer"
+                : ""
+            }
           ></textarea>
         </div>
       </Draggable>
