@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden !important;
+  background-color: #191919;
+  cursor: none;
+  color: white;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: exclusion;
+}
+
+.container p {
+  font-family: "Recoleta";
+  font-size: 2rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.overlay:after {
+  animation: grain 8s steps(10) infinite;
+  background-image: url("../img/grain.jpg");
+  content: "";
+  height: 300%;
+  left: -50%;
+  opacity: 0.06;
+  position: fixed;
+  top: -100%;
+  width: 300%;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 35%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
+}
+
+img {
+  display: none;
+}
+
+ul {
+  list-style: none;
+}

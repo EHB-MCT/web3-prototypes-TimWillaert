@@ -1,0 +1,39 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.5.1",
+    "prop-types": "^15.7.2",
+    "react-animated-cursor": "^2.1.5",
+    "react-fade-in": "^1.1.1",
+    "react-glitch-effect": "^2.0.2",
+    "react-image-list-distort": "^1.0.33",
+    "react-parallax-mousemove": "^1.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.0",
+    "three": "^0.122.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
