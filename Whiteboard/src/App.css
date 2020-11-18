@@ -39,6 +39,10 @@ canvas {
   cursor: cell;
 }
 
+.dragging {
+  cursor: grabbing;
+}
+
 .react-draggable-dragging,
 .react-draggable-dragging textarea,
 .react-draggable-dragging input {
@@ -107,7 +111,7 @@ canvas {
 
 .saveIcon {
   background-color: white;
-  padding: 10px;
+  padding: 7px 9px 5px 9px;
   border-radius: 7px;
   box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.178);
   cursor: pointer;

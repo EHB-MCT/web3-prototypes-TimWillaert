@@ -18,6 +18,7 @@ function App() {
   const [drawColor, setDrawColor] = useState("#000");
   const [selectedTool, setSelectedTool] = useState("pan");
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [noteList, setNoteList] = useState([]);
   const [textList, setTextList] = useState([]);
   const [linkList, setLinkList] = useState([]);
@@ -395,6 +396,8 @@ function App() {
             right: (window.innerWidth * 4) / 2,
             bottom: (window.innerHeight * 4) / 2,
           }}
+          onStart={() => setIsDragging(true)}
+          onStop={() => setIsDragging(false)}
         >
           <div>
             {noteList.map((item, index) => (
@@ -440,7 +443,10 @@ function App() {
                 />
               ))}
             </svg>
-            <canvas ref={canvasRef} className={selectedTool}></canvas>
+            <canvas
+              ref={canvasRef}
+              className={isDragging ? "dragging" : selectedTool}
+            ></canvas>
           </div>
         </Draggable>
       </div>
