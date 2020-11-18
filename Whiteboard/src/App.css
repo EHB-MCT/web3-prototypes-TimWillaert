@@ -73,6 +73,29 @@ canvas {
   z-index: 1;
 }
 
+#clear {
+  position: absolute;
+  z-index: 9999;
+  left: 30px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.178);
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.603);
+}
+
+#clear:hover svg {
+  opacity: 0.8;
+}
+
+#clear:active svg {
+  color: rgb(57, 70, 255);
+}
+
 #save {
   position: absolute;
   z-index: 9999;

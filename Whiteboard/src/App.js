@@ -8,6 +8,7 @@ import Draggable from "react-draggable";
 import { v4 as uuid } from "uuid";
 import update from "immutability-helper";
 import SaveIcon from "@material-ui/icons/Save";
+import LayersClearIcon from "@material-ui/icons/LayersClear";
 import moment from "moment";
 
 function App() {
@@ -31,18 +32,22 @@ function App() {
     const savedNotes = JSON.parse(localStorage.getItem("notes"));
     const savedText = JSON.parse(localStorage.getItem("text"));
 
-    for (let note of savedNotes) {
-      note.xPos = note.updatedX;
-      note.yPos = note.updatedY;
+    if (savedNotes) {
+      for (let note of savedNotes) {
+        note.xPos = note.updatedX;
+        note.yPos = note.updatedY;
+      }
     }
 
-    for (let text of savedText) {
-      text.xPos = text.updatedX;
-      text.yPos = text.updatedY;
+    if (savedText) {
+      for (let text of savedText) {
+        text.xPos = text.updatedX;
+        text.yPos = text.updatedY;
+      }
     }
 
-    setNoteList(savedNotes);
-    setTextList(savedText);
+    setNoteList(savedNotes || []);
+    setTextList(savedText || []);
 
     setLinkList(JSON.parse(localStorage.getItem("links")) || []);
     setLastSaved(localStorage.getItem("last-saved") || null);
@@ -65,10 +70,33 @@ function App() {
     context.strokeStyle = drawColor;
     context.lineWidth = 7;
     context.font = "30px Arial";
-    contextRef.current = context;
 
+    contextRef.current = context;
     drawGrid();
+
+    const drawingData = localStorage.getItem("context");
+
+    if (drawingData) {
+      let img = new window.Image();
+      img.addEventListener("load", function () {
+        context.drawImage(
+          img,
+          0,
+          0,
+          window.innerWidth * 4,
+          window.innerHeight * 4
+        );
+      });
+      img.setAttribute("src", drawingData);
+    }
   }, []);
+
+  useEffect(() => {
+    if (selectedTool !== "link") {
+      setLinkStatus(0);
+      setLinkId(null);
+    }
+  }, [selectedTool]);
 
   const startLink = (nativeEvent) => {
     setSelectedTool("link");
@@ -303,14 +331,30 @@ function App() {
     localStorage.setItem("notes", JSON.stringify(noteList));
     localStorage.setItem("text", JSON.stringify(textList));
     localStorage.setItem("last-saved", moment().format("L LTS"));
+    localStorage.setItem("context", canvasRef.current.toDataURL());
     setLastSaved(moment().format("L LTS"));
+  };
+
+  const clearBoard = () => {
+    setNoteList([]);
+    setTextList([]);
+    setLinkList([]);
+    setLinkStatus(0);
+    setLinkId(null);
+    contextRef.current.clearRect(
+      0,
+      0,
+      window.innerWidth * 4,
+      window.innerHeight * 4
+    );
+    drawGrid();
   };
 
   return (
     <div>
       <div id="fadeIn"></div>
-      <div id="save" onClick={saveBoard}>
-        <div className="saveIcon">
+      <div id="save">
+        <div className="saveIcon" onClick={saveBoard}>
           <SaveIcon />
         </div>
         {lastSaved !== null && (
@@ -319,6 +363,9 @@ function App() {
             <p>{lastSaved}</p>
           </div>
         )}
+      </div>
+      <div id="clear" onClick={clearBoard}>
+        <LayersClearIcon />
       </div>
       <Sidebar
         selectedTool={selectedTool}
