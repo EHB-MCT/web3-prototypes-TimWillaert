@@ -1,0 +1,10 @@
+#footer-dark {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  bottom: 8%;
+}
+
+#footer-dark a {
+  color: #a5a5a5;
+}

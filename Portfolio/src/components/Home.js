@@ -6,6 +6,8 @@ import BIRDS from "vanta/dist/vanta.birds.min";
 import * as THREE from "three";
 import TextTransition, { presets } from "react-text-transition";
 import { useSpring, animated } from "react-spring";
+import Header from "./Header";
+import { useHistory } from "react-router-dom";
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
@@ -19,6 +21,8 @@ export default function Home() {
   const [vantaEffect, setVantaEffect] = useState(0);
   const [lineText, setLineText] = useState("Portfolio");
   const myRef = useRef(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     const effect = BIRDS({
@@ -42,10 +46,15 @@ export default function Home() {
     };
   }, [vantaEffect]);
 
+  const handleScroll = () => {
+    history.push("/work");
+  };
+
   return (
     <div
       id="container"
       onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
+      onWheel={handleScroll}
     >
       <AnimatedCursor
         color="150, 150, 150"
@@ -55,17 +64,7 @@ export default function Home() {
       />
       <div id="overlay"></div>
       <div id="content">
-        <div id="header">
-          <Link to="/work">Work</Link>
-          <div>
-            <p>
-              designer<br></br>
-              <span className="smaller">x</span>
-              <br></br>developer
-            </p>
-          </div>
-          <Link to="/about">About</Link>
-        </div>
+        <Header />
         <div id="main">
           <div id="effect" ref={myRef}></div>
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>

@@ -1,0 +1,82 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#container-dark {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden !important;
+  background-color: #141413;
+  cursor: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+#main-work {
+  width: 150%;
+  height: 100vh;
+  left: -10vw;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+#main-work img {
+  display: none;
+}
+
+.workNumber {
+  font-family: "Recoleta";
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #a5a5a5;
+  color: transparent;
+  font-size: 3rem;
+  font-weight: bold;
+  width: 8rem;
+}
+
+.workItem h2 {
+  font-family: "Recoleta";
+  font-weight: bold;
+  color: #cdcdcd;
+  font-size: 9rem;
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+.workItem:hover h2 {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #cdcdcd;
+  cursor: pointer;
+  color: transparent;
+}
+
+.workList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  height: 65%;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 20;
+  left: 15vw;
+  top: 15vh;
+  /* mix-blend-mode: luminosity; */
+}
+
+.workItem div {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.workItem {
+  width: fit-content;
+}
+
+.parallax-wrapper {
+  position: absolute;
+  top: 0;
+}
