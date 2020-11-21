@@ -31,7 +31,7 @@
 
 #overlay {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   position: absolute;
   z-index: 999;
@@ -73,7 +73,7 @@ h1 {
   font-family: "Recoleta";
   line-height: 11rem;
   position: absolute;
-  top: -50vh;
+  top: -53vh;
   left: 10%;
   opacity: 0;
   animation: fadeInTitle 0.65s forwards ease 2.45s;
@@ -109,7 +109,7 @@ h1:hover {
 
 #lineDiv {
   position: absolute;
-  top: -40vh;
+  top: -43vh;
   right: 5%;
   display: flex;
   align-items: center;

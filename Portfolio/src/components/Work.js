@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Work.css";
 import AnimatedCursor from "react-animated-cursor";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useSpring, animated } from "react-spring";
 import ImageDistort from "react-image-list-distort";
-import image from "../img/tim.png";
-import image2 from "../img/grain.jpg";
-import image3 from "../img/construction.jpg";
+import { Works } from "../Works";
+import { Link } from "react-router-dom";
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
 
 export default function Work() {
+
+  document.title = "Tim Willaert - Work"
+
   const [props, set] = useSpring(() => ({
     xy: [0, 0],
     config: { mass: 10, tension: 550, friction: 140 },
@@ -37,34 +39,24 @@ export default function Work() {
             className="workList"
             style={{ transform: props.xy.interpolate(trans) }}
           >
-            <li className="workItem link">
-              <div>
-                <span className="workNumber">01</span>
-                <h2>Dots&Pix</h2>
-              </div>
-              <img src={image}></img>
-            </li>
-            <li className="workItem link">
-              <div>
-                <span className="workNumber">02</span>
-                <h2>Synth Rider</h2>
-              </div>
-              <img src={image2}></img>
-            </li>
-            <li className="workItem link">
-              <div>
-                <span className="workNumber">03</span>
-                <h2>Proximity</h2>
-              </div>
-              <img src={image3}></img>
-            </li>
+            {Works.map((data, key) => {
+              return(
+                <Link to={"/work/"+data.pathName} className="workItem link" key={key}>
+                  <div>
+                    <span className="workNumber">{"0" + (key + 1)}</span>
+                    <h2>{data.title}</h2>
+                  </div>
+                <img src={`dist/img/${data.thumbnail}`}></img>
+              </Link>
+              )
+            })}
           </animated.div>
           <ImageDistort
             styles={{ zIndex: 10 }}
             listRoot={".workList"}
             itemRoot={".workItem"}
             options={{
-              strength: 0.3,
+              strength: 0.2,
               geometry: {
                 shape: "plane",
                 width: 0.7,

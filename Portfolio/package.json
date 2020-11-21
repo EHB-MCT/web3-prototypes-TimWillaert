@@ -4,18 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "react-scripts test",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@webpack-cli/init": "^1.0.3",
+    "babel-loader": "^8.2.1",
     "gsap": "^3.5.1",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
+    "react": "^17.0.1",
     "react-animated-cursor": "^2.1.5",
+    "react-dom": "^17.0.1",
     "react-fade-in": "^1.1.1",
     "react-glitch-effect": "^2.0.2",
     "react-image-list-distort": "^1.0.33",
@@ -23,9 +25,12 @@
     "react-router-dom": "^5.2.0",
     "react-router-transition": "^2.0.0",
     "react-scripts": "^4.0.0",
+    "react-scroll-percentage": "^4.2.0",
+    "react-scroll-progress-bar": "^1.1.12",
     "react-spring": "^8.0.27",
     "react-text-transition": "^1.1.2",
     "three": "^0.122.0",
+    "url-loader": "^4.1.1",
     "vanta": "^0.5.21"
   },
   "browserslist": {
@@ -39,5 +44,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.0.0",
+    "copy-webpack-plugin": "^6.3.2",
+    "html-webpack-plugin": "^4.5.0",
+    "path": "^0.12.7",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.5.1"
   }
 }
