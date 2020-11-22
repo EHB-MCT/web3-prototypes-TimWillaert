@@ -52,7 +52,7 @@ export const Works = [
                     img: "synthrider/home3.png"
                 },
                 {
-                    text: "While the song is playing, you can add extra sounds by pressing these buttons. Synth Rider provides full hand tracking support.",
+                    text: "While the song is playing, you can add extra sounds by pressing these buttons. Synth Rider provides complete hand tracking.",
                     img: "synthrider/instruments.png"
                 },
                 {
@@ -91,7 +91,7 @@ export const Works = [
                     img: "proximity/tutorial.png"
                 },
                 {
-                    text: "When you walk up to a painting in the museum, the app will recognize where you are and ask you a question about the painting in front of you. These questions cover topics like colors and themes of the painting.",
+                    text: "When you walk up to a painting in the museum, the app recognizes where you are and asks you a question about the painting in front of you. These questions cover topics like colors and themes of the painting.",
                     img: "proximity/vraag.jpg"
                 },
                 {
@@ -99,7 +99,7 @@ export const Works = [
                     img: "proximity/scannen.jpg"
                 },
                 {
-                    text: "Once scanned, more information about the painting is visible in your collection. Scan all paintings in the museum to receive a special reward.",
+                    text: "Once scanned, additional information about the painting is visible in your collection. Scan all paintings in the museum to receive a special reward.",
                     img: "proximity/collection.png"
                 },
                 {

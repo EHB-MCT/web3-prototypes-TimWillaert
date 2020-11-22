@@ -3,6 +3,7 @@
   width: 100%;
   text-align: left;
   bottom: 8%;
+  z-index: 9999999;
 }
 
 #footer-dark a {

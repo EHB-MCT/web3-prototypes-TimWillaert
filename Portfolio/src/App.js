@@ -3,6 +3,7 @@ import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Work from "./components/Work";
 import WorkDetail from './components/WorkDetail';
+import About from './components/About';
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
           <WorkDetail key={props.match.params.id} {...props} />)
         } />
         <Route path="/work" component={Work} />
+        <Route path="/about" component={About} />
         <Route exact path="/" component={Home} />
       </Switch>
     </Router>

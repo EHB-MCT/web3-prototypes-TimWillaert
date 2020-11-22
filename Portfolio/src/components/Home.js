@@ -27,7 +27,12 @@ export default function Home() {
 
   const history = useHistory();
 
+  const onFocus = () => {
+    window.dispatchEvent(new Event("resize"));
+  }
+
   useEffect(() => {
+    window.addEventListener("focus", onFocus);
     const effect = BIRDS({
       THREE,
       el: myRef.current,

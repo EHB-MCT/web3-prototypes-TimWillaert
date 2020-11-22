@@ -7,6 +7,7 @@ import { Works } from "../Works";
 import { useSpring, animated } from "react-spring";
 import ImageDistort from "react-image-list-distort";
 import ProgressBar from "react-scroll-progress-bar";
+import ScrollToTop from "react-scroll-up";
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
@@ -40,6 +41,9 @@ export default function WorkDetail(){
             <div id="overlay"></div>
             <div id="content-detail">
                 <ProgressBar bgcolor="#7B08FF"/>
+                <ScrollToTop showUnder={250} style={{right: 50}}>
+                    <span className="up link">Top</span>
+                </ScrollToTop>
                 <div id="header-detail">
                     <NavLink to="/work">
                         Close
@@ -90,20 +94,20 @@ export default function WorkDetail(){
                     {work.explanation !== undefined &&
                         work.explanation.map((data, key) => {
                             return(
-                                <div className="workExpl" key={key}>
-                                    <div>
-                                        <p>{"0" + (key + 1)}</p>
-                                        <p>{data.text}</p>
+                                    <div className="workExpl" key={key}>
+                                        <div>
+                                            <p>{"0" + (key + 1)}</p>
+                                            <p>{data.text}</p>
+                                        </div>
+                                        {
+                                            data.img &&
+                                            <img src={`dist/img/${data.img}`}></img>
+                                        }
+                                        {
+                                            data.video &&
+                                            <video controls src={`dist/img/${data.video}`}></video>
+                                        }
                                     </div>
-                                    {
-                                        data.img &&
-                                        <img src={`dist/img/${data.img}`}></img>
-                                    }
-                                    {
-                                        data.video &&
-                                        <video controls src={`dist/img/${data.video}`}></video>
-                                    }
-                                </div>
                             )
                         })
                     }
