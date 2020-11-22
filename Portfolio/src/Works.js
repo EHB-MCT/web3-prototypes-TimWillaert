@@ -91,7 +91,7 @@ export const Works = [
                     img: "proximity/tutorial.png"
                 },
                 {
-                    text: "When you walk up to a painting in the museum, the app recognizes where you are and asks you a question about the painting in front of you. These questions cover topics like colors and themes of the painting.",
+                    text: "When you walk up to a painting in the museum, the app recognizes where you are and asks a question about the painting in front of you. These questions cover topics like colors and themes of the painting.",
                     img: "proximity/vraag.jpg"
                 },
                 {
