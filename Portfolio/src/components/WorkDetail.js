@@ -95,7 +95,14 @@ export default function WorkDetail(){
                                         <p>{"0" + (key + 1)}</p>
                                         <p>{data.text}</p>
                                     </div>
-                                    <img src={`dist/img/${data.img}`}></img>
+                                    {
+                                        data.img &&
+                                        <img src={`dist/img/${data.img}`}></img>
+                                    }
+                                    {
+                                        data.video &&
+                                        <video controls src={`dist/img/${data.video}`}></video>
+                                    }
                                 </div>
                             )
                         })
