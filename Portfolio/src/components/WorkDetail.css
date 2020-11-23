@@ -1,273 +1,275 @@
 /* width */
 ::-webkit-scrollbar {
-    width: 0px;
-  }
+  width: 0px;
+}
 
 #container-detail {
-    min-height: 100vh;
-    width: 100vw;
-    background-color: #efefef;
-    cursor: none;
-    display: flex;
-    justify-content: center;
-    color: black !important;
-    overflow-y: auto;
-    overflow-y: overlay;
-    overflow-x: hidden;
-    padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #efefef;
+  cursor: none;
+  display: flex;
+  justify-content: center;
+  color: black !important;
+  overflow-y: auto;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding: 0;
 }
 
 #content-detail {
-    width: 80vw;
-    min-height: 100vh;
+  width: 80vw;
+  min-height: 100vh;
 }
 
-#header-detail{
-    position: fixed;
-    width: 100%;
-    top: 8%;
+#header-detail {
+  position: fixed;
+  width: 100%;
+  top: 8%;
 }
-
 
 #header-detail a {
-    color: #A5A5A5 !important;
+  color: #a5a5a5 !important;
 }
 
 #main-detail {
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 10vh;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10vh;
 }
 
-#worklanding{
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#worklanding {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #scroll-detail {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 #scroll-detail p {
-    text-decoration: none;
-    color: #a5a5a5;
-    font-family: "Lato", sans-serif;
-    font-size: 0.9rem;
+  text-decoration: none;
+  color: #a5a5a5;
+  font-family: "Lato", sans-serif;
+  font-size: 0.9rem;
 }
-
 
 #scroll-detail div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #scroll-detail p {
-    margin-bottom: 13px;
+  margin-bottom: 13px;
 }
 
 .scroll-line {
-    height: 20px;
-    max-height: 20px;
-    overflow: hidden;
-    width: 1px;
-    background-color: #cacaca;
-    transform: scaleY(0);
-    transform-origin: top;
-    position: relative;
-    animation: scroll 1.5s infinite ease-in-out;
+  height: 20px;
+  max-height: 20px;
+  overflow: hidden;
+  width: 1px;
+  background-color: #cacaca;
+  transform: scaleY(0);
+  transform-origin: top;
+  position: relative;
+  animation: scroll 1.5s infinite ease-in-out;
 }
 
 @keyframes scroll {
-    0% {
-        transform: scaleY(0);
-    }
+  0% {
+    transform: scaleY(0);
+  }
 
-    40%,
-    50%,
-    60% {
-        transform: scaleY(1);
-    }
+  40%,
+  50%,
+  60% {
+    transform: scaleY(1);
+  }
 
-    90% {
-        transform-origin: bottom;
-        transform: scaleY(0);
-    }
+  90% {
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
 
-    100% {
-        transform-origin: bottom;
-        transform: scaleY(0);
-    }
+  100% {
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
 }
 
-#metadata h3{
-    font-family: 'Recoleta';
-    font-weight: normal !important;
-    display: inline-block;
-    font-size: 1rem;
+#metadata h3 {
+  font-family: "Recoleta";
+  font-weight: normal !important;
+  display: inline-block;
+  font-size: 1rem;
 }
 
-#metadata h3:first-child{
-    width: 20vw;
+#metadata h3:first-child {
+  width: 20vw;
 }
 
-#worklanding h1{
-    opacity: 1;
-    position: relative !important;
-    z-index: 99;
-    animation: none;
-    top: unset;
-    left: unset;
-    margin: 7vh 0;
-    font-size: 11rem !important;
-    width: fit-content;
+#worklanding h1 {
+  opacity: 1;
+  position: relative !important;
+  z-index: 99;
+  animation: none;
+  top: unset;
+  left: unset;
+  margin: 7vh 0;
+  font-size: 11rem !important;
+  width: fit-content;
 }
 
-.parent, .parent2{
-    position: relative;
-    width: fit-content;
-    z-index: 20;
+.parent,
+.parent2 {
+  position: relative;
+  width: fit-content;
+  z-index: 20;
 }
 
-.child{
-    width: fit-content;
+.child {
+  width: fit-content;
 }
 
-#worklanding h1:hover{
-    -webkit-text-stroke-width: 0px;
+#worklanding h1:hover {
+  -webkit-text-stroke-width: 0px;
   cursor: pointer;
   color: black;
 }
 
-#details{
-    position: relative;
+#details {
+  position: relative;
 }
 
-#details a, #details p{
-    display: inline-block;
+#details a,
+#details p {
+  display: inline-block;
 }
 
-#details p{
-    max-width: 60%;
-    font-family: 'Lato';
-    font-size: 0.9rem;
+#details p {
+  max-width: 60%;
+  font-family: "Lato";
+  font-size: 0.9rem;
 }
 
-#worklanding img{
-    display: none;
+#worklanding img {
+  display: none;
 }
 
-#details a{
-    color: black;
-    border-bottom: 1px solid black;
-    padding-bottom: 7px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    transition: all 0.3s ease;
+#details a {
+  color: black;
+  border-bottom: 1px solid black;
+  padding-bottom: 7px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: all 0.3s ease;
 }
 
-#details a:hover{
-    padding-bottom: 12px;
+#details a:hover {
+  padding-bottom: 12px;
 }
 
-.workExpl{
-    margin-top: 200px;
+.workExpl {
+  margin-top: 200px;
 }
 
-.workExpl div{
-    display: flex;
+.workExpl div {
+  display: flex;
 }
 
-.workExpl p{
-    font-family: 'Recoleta';
+.workExpl p {
+  font-family: "Recoleta";
 }
 
-.workExpl p:last-child{
-    margin-left: 7vw;
+.workExpl p:last-child {
+  margin-left: 7vw;
 }
 
-.workExpl img{
-    width: 100%;
-    margin-top: 30px;
+.workExpl img {
+  width: 100%;
+  margin-top: 30px;
 }
 
-#work-explanation{
-    width: 80%;
-    margin-left: 10%;
+#work-explanation {
+  width: 80%;
+  margin-left: 10%;
 }
 
-#links{
-    margin-top: 300px;
-    margin-bottom: 200px;
-    display: flex;
-    justify-content: center;
-    height: 3rem;
-    align-items: flex-end;
+#links {
+  display: flex;
+  justify-content: center;
+  height: 3rem;
+  align-items: flex-end;
+  padding-bottom: 20vh;
 }
 
-#links a{
-    color: black;
-    padding-bottom: 7px;
-    transition: all 0.3s ease;
-    margin: 0 50px;
-    font-size: 1rem;
-    position: relative;
-    border-bottom: 1px solid black;
-    height: fit-content;
+#links a {
+  color: black;
+  padding-bottom: 7px;
+  transition: all 0.3s ease;
+  margin: 0 50px;
+  font-size: 1rem;
+  position: relative;
+  border-bottom: 1px solid black;
+  height: fit-content;
 }
 
-#links a:hover{
-    padding-bottom: 12px;
+#links a:hover {
+  padding-bottom: 12px;
 }
 
-#nextProject p{
-    font-family: 'Lato';
+#nextProject p {
+  font-family: "Lato";
 }
 
-.child2{
-    font-family: 'Recoleta';
-    margin-top: 15px;
-    display: flex;
-    align-items: flex-end;
+.child2 {
+  font-family: "Recoleta";
+  margin-top: 15px;
+  display: flex;
+  align-items: flex-end;
 }
 
-#nextProject h5{
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    font-size: 3rem;
-    color: transparent;
-    padding-bottom: 1rem;
-    transition: all 0.2s ease;
+#nextProject h5 {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  font-size: 3rem;
+  color: transparent;
+  padding-bottom: 1rem;
+  transition: all 0.2s ease;
 }
 
-#nextProject h4{
-    font-size: 6rem;
-    margin-left: 3rem;
+#nextProject h4 {
+  font-size: 6rem;
+  margin-left: 3rem;
 }
 
-#nextProject h4:hover{
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    color: transparent;
+#nextProject:hover h4 {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  color: transparent;
 }
 
-#nextProject{
-    padding-bottom: 220px;
+#nextProject img {
+  display: none;
 }
 
-#nextProject img{
-    display: none;
+#end-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-video{
-    margin-top: 30px;
-    width: 100%;
+video {
+  margin-top: 30px;
+  width: 100%;
 }
 
-.up{
-    font-family: 'Recoleta';
+.up {
+  font-family: "Recoleta";
 }
