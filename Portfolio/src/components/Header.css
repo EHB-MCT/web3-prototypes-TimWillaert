@@ -5,7 +5,7 @@
   width: 100%;
   top: 8%;
   opacity: 0;
-  animation: fadeIn 0.8s ease forwards 3.5s;
+  animation: fadeIn 0.8s ease forwards 5.5s;
   pointer-events: none;
 }
 

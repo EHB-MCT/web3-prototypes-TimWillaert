@@ -1,11 +1,8 @@
-/* width */
 ::-webkit-scrollbar {
   width: 0px;
 }
 
 #container-detail {
-  min-height: 100vh;
-  width: 100vw;
   background-color: #efefef;
   cursor: none;
   display: flex;
@@ -15,6 +12,7 @@
   overflow-y: overlay;
   overflow-x: hidden;
   padding: 0;
+  position: relative;
 }
 
 #content-detail {
@@ -188,6 +186,11 @@
 
 .workExpl p:last-child {
   margin-left: 7vw;
+}
+
+.workExpl p a {
+  color: black;
+  text-decoration: underline;
 }
 
 .workExpl img {

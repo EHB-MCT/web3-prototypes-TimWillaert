@@ -59,12 +59,19 @@
 
 #about {
   position: absolute;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#about p {
   color: rgba(255, 255, 255, 0.034);
   font-family: "Recoleta";
   font-weight: bold;
   font-size: 37vw;
-  left: -5vw;
-  z-index: 0;
+  position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-46%);
+  left: -5vw;
 }

@@ -1,10 +1,11 @@
 import React, {
   useLayoutEffect,
   useEffect,
+  useRef,
   useState,
   forceUpdate,
 } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import AnimatedCursor from "react-animated-cursor";
 import "./WorkDetail.css";
 import { NavLink } from "react-router-dom";
@@ -13,6 +14,7 @@ import { useSpring, animated } from "react-spring";
 import ImageDistort from "react-image-list-distort";
 import ProgressBar from "react-scroll-progress-bar";
 import ScrollToTop from "react-scroll-up";
+var parse = require("html-react-parser");
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
@@ -21,6 +23,8 @@ export default function WorkDetail() {
   const { id } = useParams();
   const [work, setWork] = useState({});
   const [workNumber, setWorkNumber] = useState(0);
+
+  const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,6 +39,15 @@ export default function WorkDetail() {
     config: { mass: 10, tension: 550, friction: 140 },
   }));
 
+  const history = useHistory();
+
+  const handleTransition = (dest) => {
+    setIsLeaving(true);
+    setTimeout(() => {
+      history.push(dest);
+    }, 1000);
+  };
+
   return (
     <div
       id="container-detail"
@@ -47,13 +60,14 @@ export default function WorkDetail() {
         innerScale="0.4"
       />
       <div id="overlay"></div>
+      <div id="fadeOut-dark" className={isLeaving ? "transition" : ""}></div>
       <div id="content-detail">
         <ProgressBar bgcolor="#7B08FF" />
-        <ScrollToTop showUnder={250} style={{ right: 50 }}>
+        <ScrollToTop showUnder={250} style={{ right: "10%", bottom: "8%" }}>
           <span className="up link">Top</span>
         </ScrollToTop>
         <div id="header-detail">
-          <NavLink to="/work">Close</NavLink>
+          <a onClick={() => handleTransition("/work")}>Close</a>
         </div>
         <div id="main-detail">
           <div id="worklanding">
@@ -89,9 +103,16 @@ export default function WorkDetail() {
             )}
             <div id="details">
               <p>{work.description}</p>
-              <a href={work.url} target="_blank">
-                Visit Website
-              </a>
+              {work.url !== undefined && (
+                <a href={work.url} target="_blank">
+                  Visit Website
+                </a>
+              )}
+              {work.url === undefined && (
+                <a href={work.github} target="_blank">
+                  View Code
+                </a>
+              )}
             </div>
           </div>
           <div id="scroll-detail">
@@ -107,7 +128,7 @@ export default function WorkDetail() {
                   <div className="workExpl" key={key}>
                     <div>
                       <p>{"0" + (key + 1)}</p>
-                      <p>{data.text}</p>
+                      <p>{parse(data.text)}</p>
                     </div>
                     {data.img && <img src={`dist/img/${data.img}`}></img>}
                     {data.video && (
@@ -119,9 +140,11 @@ export default function WorkDetail() {
           </div>
           <div id="end-container">
             <div id="links">
-              <a href={work.url} target="_blank">
-                Visit Website
-              </a>
+              {work.url !== undefined && (
+                <a href={work.url} target="_blank">
+                  Visit Website
+                </a>
+              )}
               <a href={work.github} target="_blank">
                 View Code
               </a>
@@ -134,8 +157,12 @@ export default function WorkDetail() {
                     className="parent2"
                     style={{ transform: props.xy.interpolate(trans) }}
                   >
-                    <NavLink
-                      to={"/work/" + Works[workNumber + 1].pathName}
+                    <a
+                      onClick={() =>
+                        handleTransition(
+                          "/work/" + Works[workNumber + 1].pathName
+                        )
+                      }
                       className="child2"
                     >
                       <h5>{"0" + (workNumber + 2)}</h5>
@@ -143,7 +170,7 @@ export default function WorkDetail() {
                       <img
                         src={`dist/img/${Works[workNumber + 1].thumbnail}`}
                       ></img>
-                    </NavLink>
+                    </a>
                   </animated.div>
                   <ImageDistort
                     styles={{ zIndex: 10 }}
@@ -166,14 +193,16 @@ export default function WorkDetail() {
                     className="parent2"
                     style={{ transform: props.xy.interpolate(trans) }}
                   >
-                    <NavLink
-                      to={"/work/" + Works[0].pathName}
+                    <a
+                      onClick={() =>
+                        handleTransition("/work/" + Works[0].pathName)
+                      }
                       className="child2"
                     >
                       <h5>01</h5>
                       <h4>{Works[0].title}</h4>
                       <img src={`dist/img/${Works[0].thumbnail}`}></img>
-                    </NavLink>
+                    </a>
                   </animated.div>
                   <ImageDistort
                     styles={{ zIndex: 10 }}

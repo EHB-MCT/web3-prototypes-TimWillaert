@@ -1,6 +1,14 @@
 body {
   margin: 0;
   overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+.selectable {
+  -moz-user-select: all !important;
+  -webkit-user-select: all !important;
+  -ms-user-select: all !important;
+  user-select: all !important;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");

@@ -13,8 +13,7 @@ const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
 
 export default function Home() {
-
-  document.title = "Tim Willaert - Designer x Developer"
+  document.title = "Tim Willaert - Designer x Developer";
 
   const [props, set] = useSpring(() => ({
     xy: [0, 0],
@@ -23,15 +22,18 @@ export default function Home() {
 
   const [vantaEffect, setVantaEffect] = useState(0);
   const [lineText, setLineText] = useState("Portfolio");
+  const [isLeaving, setIsLeaving] = useState(false);
   const myRef = useRef(null);
+  const ui = useRef(null);
 
   const history = useHistory();
 
   const onFocus = () => {
     window.dispatchEvent(new Event("resize"));
-  }
+  };
 
   useEffect(() => {
+    console.log(history);
     window.addEventListener("focus", onFocus);
     const effect = BIRDS({
       THREE,
@@ -47,15 +49,28 @@ export default function Home() {
       }, 1);
       setTimeout(() => {
         clearInterval(myInterval);
-      }, 3000);
+      }, 6000);
     }
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);
 
-  const handleScroll = () => {
-    history.push("/work");
+  const handleTransition = (dest) => {
+    setIsLeaving(true);
+    setTimeout(() => {
+      history.push(dest);
+    }, 1000);
+  };
+
+  const handleScroll = ({ nativeEvent }) => {
+    const style = getComputedStyle(ui.current);
+    if (style.opacity != 0 && nativeEvent.deltaY == 100) {
+      setIsLeaving(true);
+      setTimeout(() => {
+        history.push("/work");
+      }, 1000);
+    }
   };
 
   return (
@@ -71,19 +86,35 @@ export default function Home() {
         innerScale="0.4"
       />
       <div id="overlay"></div>
+      <div
+        id="fadeOut"
+        style={
+          history.action === "POP"
+            ? {
+                backgroundColor: "#efefef",
+                animation: "animation: fadeOut 2s ease-in-out forwards 1s",
+              }
+            : {
+                backgroundColor: "#141413",
+                animation: "animation: fadeOut 2s ease-in-out forwards",
+              }
+        }
+        className={isLeaving ? "transition" : ""}
+      ></div>
       <div id="content">
-        <Header />
+        <Header leaveFunction={handleTransition} activeRoute="" />
         <div id="main">
           <div id="effect" ref={myRef}></div>
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>
-            <Link to="/work">
+            <a onClick={() => handleTransition("/work")}>
               <h1
+                ref={ui}
                 onMouseOver={() => setLineText("Explore")}
                 onMouseLeave={() => setLineText("Portfolio")}
               >
                 Tim<br></br>Willaert
               </h1>
-            </Link>
+            </a>
           </animated.div>
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>
             <div id="lineDiv">
