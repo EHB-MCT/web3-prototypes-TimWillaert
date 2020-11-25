@@ -141,7 +141,7 @@ export const Works = [
     pathName: "2002020",
     year: "2020",
     description:
-      "Data visualization of migration statistics in Belgium. Data imported from json and dynamically rendered. Made in 1 week with JavaScript and p5.js to create the particles.",
+      "Data visualization of migration statistics in Belgium. Data imported from json and dynamically rendered. Made in 3 days with JavaScript and p5.js to create the particles.",
     url: undefined,
     github: "https://github.com/TimWillaert/2002020Expo",
     thumbnail: "2002020/thumbnail.png",

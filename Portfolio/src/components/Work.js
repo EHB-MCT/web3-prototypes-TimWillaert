@@ -7,6 +7,7 @@ import { useSpring, animated } from "react-spring";
 import ImageDistort from "react-image-list-distort";
 import { Works } from "../Works";
 import { Link, useHistory } from "react-router-dom";
+import { Scrollbars } from "react-custom-scrollbars";
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
@@ -50,39 +51,48 @@ export default function Work() {
           activeRoute="work"
         />
         <div id="main-work">
-          <animated.div
-            className="workList"
-            style={{ transform: props.xy.interpolate(trans) }}
+          <Scrollbars
+            renderTrackVertical={(props) => (
+              <div {...props} className="track-vertical" />
+            )}
+            renderThumbVertical={(props) => (
+              <div {...props} className="thumb-vertical" />
+            )}
           >
-            {Works.map((data, key) => {
-              return (
-                <a
-                  onClick={() => handleTransition("/work/" + data.pathName)}
-                  className="workItem link"
-                  key={key}
-                >
-                  <div>
-                    <span className="workNumber">{"0" + (key + 1)}</span>
-                    <h2>{data.title}</h2>
-                  </div>
-                  <img src={`dist/img/${data.thumbnail}`}></img>
-                </a>
-              );
-            })}
-          </animated.div>
-          <ImageDistort
-            styles={{ zIndex: 10 }}
-            listRoot={".workList"}
-            itemRoot={".workItem"}
-            options={{
-              strength: 0.2,
-              geometry: {
-                shape: "plane",
-                width: 0.7,
-                height: 0.7,
-              },
-            }}
-          ></ImageDistort>
+            <animated.div
+              className="workList"
+              style={{ transform: props.xy.interpolate(trans) }}
+            >
+              {Works.map((data, key) => {
+                return (
+                  <a
+                    onClick={() => handleTransition("/work/" + data.pathName)}
+                    className="workItem link"
+                    key={key}
+                  >
+                    <div>
+                      <span className="workNumber">{"0" + (key + 1)}</span>
+                      <h2>{data.title}</h2>
+                    </div>
+                    <img src={`dist/img/${data.thumbnail}`}></img>
+                  </a>
+                );
+              })}
+            </animated.div>
+            <ImageDistort
+              styles={{ zIndex: 10 }}
+              listRoot={".workList"}
+              itemRoot={".workItem"}
+              options={{
+                strength: 0.2,
+                geometry: {
+                  shape: "plane",
+                  width: 0.7,
+                  height: 0.7,
+                },
+              }}
+            ></ImageDistort>
+          </Scrollbars>
         </div>
         <Footer leaveFunction={handleTransition} />
       </div>

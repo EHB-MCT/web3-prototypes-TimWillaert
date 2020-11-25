@@ -36,14 +36,14 @@
 }
 
 #main-work {
-  width: 150%;
+  width: 80vw;
   height: 102vh;
   top: 0vh;
-  left: -7vw;
+  left: -10vw;
   position: absolute;
   display: flex;
   align-items: center;
-  overflow: scroll;
+  overflow: auto;
 }
 
 #main-work img {
@@ -85,9 +85,39 @@
   position: absolute;
   z-index: 20;
   left: 15vw;
-  padding-top: 30vh;
+  /* overflow: auto; */
+  width: 55%;
   /* mix-blend-mode: luminosity; */
 }
+
+/* #main-work::-webkit-scrollbar {
+  display: block;
+  width: 5px;
+}
+
+#main-work::-webkit-scrollbar-track {
+  background: transparent;
+  border: solid 3px transparent;
+}
+
+#main-work::-webkit-scrollbar-thumb {
+  background-color: rgb(124, 124, 124);
+  border-right: none;
+  border-left: none;
+  border-radius: 100px;
+}
+
+#main-work::-webkit-scrollbar-track-piece:end {
+  background-color: rgb(83, 83, 83);
+  margin-bottom: 40vh;
+  border-radius: 100px;
+}
+
+#main-work::-webkit-scrollbar-track-piece:start {
+  background-color: rgb(83, 83, 83);
+  margin-top: 40vh;
+  border-radius: 100px;
+} */
 
 .workItem div {
   display: inline-flex;
@@ -99,7 +129,30 @@
   margin: 2.5vh 0;
 }
 
+.workItem:last-of-type {
+  padding-bottom: 30vh;
+}
+
+.workItem:first-of-type {
+  padding-top: 20vh;
+}
+
 .parallax-wrapper {
   position: absolute;
   top: 0;
+}
+
+.track-vertical {
+  height: 30%;
+  width: 5px !important;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  background-color: rgb(54, 54, 54);
+  border-radius: 100px;
+}
+
+.thumb-vertical {
+  background-color: rgb(75, 75, 75);
+  border-radius: 100px;
 }
