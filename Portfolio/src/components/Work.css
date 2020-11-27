@@ -55,7 +55,7 @@
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #a5a5a5;
   color: transparent;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   width: 8rem;
 }
@@ -67,6 +67,8 @@
   font-size: 8rem;
   width: auto;
   transition: all 0.2s ease;
+  line-height: 8rem;
+  white-space: nowrap;
 }
 
 .workItem:hover h2 {
@@ -90,43 +92,14 @@
   /* mix-blend-mode: luminosity; */
 }
 
-/* #main-work::-webkit-scrollbar {
-  display: block;
-  width: 5px;
-}
-
-#main-work::-webkit-scrollbar-track {
-  background: transparent;
-  border: solid 3px transparent;
-}
-
-#main-work::-webkit-scrollbar-thumb {
-  background-color: rgb(124, 124, 124);
-  border-right: none;
-  border-left: none;
-  border-radius: 100px;
-}
-
-#main-work::-webkit-scrollbar-track-piece:end {
-  background-color: rgb(83, 83, 83);
-  margin-bottom: 40vh;
-  border-radius: 100px;
-}
-
-#main-work::-webkit-scrollbar-track-piece:start {
-  background-color: rgb(83, 83, 83);
-  margin-top: 40vh;
-  border-radius: 100px;
-} */
-
 .workItem div {
   display: inline-flex;
-  align-items: baseline;
+  align-items: flex-end;
 }
 
 .workItem {
   width: fit-content;
-  margin: 2.5vh 0;
+  margin: 5vh 0;
 }
 
 .workItem:last-of-type {

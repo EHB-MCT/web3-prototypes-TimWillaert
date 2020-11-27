@@ -1,0 +1,43 @@
+#container-m {
+  background-color: #141413;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+#overlay-m {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+#overlay-m:after {
+  animation: grain 8s steps(10) infinite;
+  background-image: url("../img/grain.jpg");
+  content: "";
+  height: 300%;
+  left: -50%;
+  opacity: 0.07;
+  position: fixed;
+  top: -100%;
+  width: 300%;
+  filter: grayscale(100%);
+}
+
+#content-m {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+#content-m p {
+  color: white;
+  font-family: "Recoleta";
+  text-align: center;
+  line-height: 2rem;
+  padding: 20px;
+}

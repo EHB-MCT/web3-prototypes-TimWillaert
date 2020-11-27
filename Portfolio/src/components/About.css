@@ -34,12 +34,14 @@
 }
 
 #contact {
-  margin-top: 10vh;
+  margin-top: 8vh;
   display: flex;
   justify-content: center;
-  height: 3rem;
+  height: 5rem;
   align-items: flex-end;
   flex-direction: row !important;
+  max-width: 90vw;
+  flex-wrap: wrap;
 }
 
 #contact a {
@@ -50,7 +52,7 @@
   font-size: 1rem;
   border-bottom: 1px solid white;
   transition: all 0.3s ease;
-  margin: 0 30px;
+  margin: 1.5vh 30px;
 }
 
 #contact a:hover {

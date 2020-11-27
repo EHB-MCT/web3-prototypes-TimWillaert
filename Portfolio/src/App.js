@@ -4,21 +4,10 @@ import Home from "./components/Home";
 import Work from "./components/Work";
 import WorkDetail from "./components/WorkDetail";
 import About from "./components/About";
-import ReactGA from "react-ga";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
-const trackingId = "G-EFMEM3FB8D";
-ReactGA.initialize(trackingId);
-// Initialize google analytics page view tracking
-history.listen((location) => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
 
 export default function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
         <Route
           path="/work/:id"
