@@ -86,6 +86,72 @@ export const Works = [
     ],
   },
   {
+    title: "Covid Stats",
+    pathName: "covidstats",
+    year: "2020",
+    description: "An iOS app which retrieves and visualises Covid-19 statistics. API data is stored with CoreData. Made with xCode and Swift.",
+    url: undefined,
+    github: "https://github.com/TimWillaert/Covid-Stats",
+    thumbnail: "covid/thumbnail.png",
+    explanation: [
+      {
+        text: "Overview page. Displays the worldwide total amount of cases and deaths, as well as the total numbers for the user's country.",
+        img: "covid/overview.png"
+      },
+      {
+        text: "The list of all documented countries. Severity is the amount of total cases relative to the country population and is displayed with green, orange or red circles.",
+        img: "covid/countries.png"
+      },
+      {
+        text: "Detailed country view. Graphs display the country's numbers from the last 7 days.",
+        img: "covid/country.png"
+      },
+      {
+        text: "List of continents.",
+        img: "covid/continents.png"
+      },
+      {
+        text: "Detailed continent view. The 10 countries with the worst numbers are shown in a carousel that you can swipe through.",
+        img: "covid/continent.png"
+      },
+      {
+        text: "About page. Used data from <a href='https://www.ecdc.europa.eu/' class='link' target='_blank'>ecdc.europa.eu</a>.",
+        img: "covid/about.png"
+      }
+    ]
+  },
+  {
+    title: "2002020",
+    pathName: "2002020",
+    year: "2020",
+    description:
+      "Data visualization of migration statistics in Belgium. Data imported from json and dynamically rendered. Made with vanilla HTML, CSS, JavaScript and p5.js to create the particles.",
+    url: undefined,
+    github: "https://github.com/TimWillaert/2002020Expo",
+    thumbnail: "2002020/thumbnail.png",
+    explanation: [
+      {
+        text:
+          "Particles are flowing to and from Belgium showcasing immigration and emigration. The amount of particles is in proportion to the amount of migrants.",
+        img: "2002020/2002020.gif",
+      },
+      {
+        text:
+          "Hover over each country to see specific numbers. The 9 countries with the highest numbers for immigration and emigration are shown.",
+        img: "2002020/2002020_3.gif",
+      },
+      {
+        text:
+          "Hovering over Belgium displays the total number of immigrants and emigrants.",
+        img: "2002020/2002020_4.png",
+      },
+      {
+        text: `For this project I collaborated with <a href='https://www.linkedin.com/in/chiel-habils/' class='link' target='_blank'>Chiel Habils</a> and <a href="https://www.linkedin.com/in/yanni-menu-a88258182/" class='link' target='_blank'>Yanni Menu</a>.`,
+        img: "2002020/2002020_5.png",
+      },
+    ],
+  },
+  {
     title: "Synth Rider",
     pathName: "synthrider",
     year: "2020",
@@ -135,36 +201,5 @@ export const Works = [
         img: "synthrider/drivermode.png",
       },
     ],
-  },
-  {
-    title: "2002020",
-    pathName: "2002020",
-    year: "2020",
-    description:
-      "Data visualization of migration statistics in Belgium. Data imported from json and dynamically rendered. Made with vanilla HTML, CSS, JavaScript and p5.js to create the particles.",
-    url: undefined,
-    github: "https://github.com/TimWillaert/2002020Expo",
-    thumbnail: "2002020/thumbnail.png",
-    explanation: [
-      {
-        text:
-          "Particles are flowing to and from Belgium showcasing immigration and emigration. The amount of particles is in proportion to the amount of migrants.",
-        img: "2002020/2002020.gif",
-      },
-      {
-        text:
-          "Hover over each country to see specific numbers. The 9 countries with the highest numbers for immigration and emigration are shown.",
-        img: "2002020/2002020_3.gif",
-      },
-      {
-        text:
-          "Hovering over Belgium displays the total number of immigrants and emigrants.",
-        img: "2002020/2002020_4.png",
-      },
-      {
-        text: `For this project I collaborated with <a href='https://www.linkedin.com/in/chiel-habils/' class='link' target='_blank'>Chiel Habils</a> and <a href="https://www.linkedin.com/in/yanni-menu-a88258182/" class='link' target='_blank'>Yanni Menu</a>.`,
-        img: "2002020/2002020_5.png",
-      },
-    ],
-  },
+  }
 ];
