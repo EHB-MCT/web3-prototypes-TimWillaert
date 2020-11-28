@@ -65,7 +65,7 @@ export default function Home() {
 
   const handleScroll = ({ nativeEvent }) => {
     const style = getComputedStyle(ui.current);
-    if (style.opacity != 0 && nativeEvent.deltaY == 100) {
+    if (style.opacity != 0 && nativeEvent.deltaY > 100) {
       setIsLeaving(true);
       setTimeout(() => {
         history.push("/work");
@@ -78,6 +78,7 @@ export default function Home() {
       id="container"
       onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
       onWheel={handleScroll}
+      onScroll={handleScroll}
     >
       <AnimatedCursor
         color="150, 150, 150"
@@ -106,15 +107,15 @@ export default function Home() {
         <div id="main">
           <div id="effect" ref={myRef}></div>
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>
-            <a onClick={() => handleTransition("/work")}>
               <h1
                 ref={ui}
                 onMouseOver={() => setLineText("Explore")}
                 onMouseLeave={() => setLineText("Portfolio")}
+                onClick={() => handleTransition("/work")}
+                className="link"
               >
                 Tim<br></br>Willaert
               </h1>
-            </a>
           </animated.div>
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>
             <div id="lineDiv">
