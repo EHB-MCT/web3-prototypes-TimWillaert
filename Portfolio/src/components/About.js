@@ -5,6 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useSpring, animated } from "react-spring";
 import { useHistory } from "react-router-dom";
+import ReactTooltip from 'react-tooltip';
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
 const trans = (x, y) => `translate3d(${-(x / 27)}px,${-(y / 27)}px,0)`;
@@ -52,12 +53,30 @@ export default function About() {
         />
         <div id="main">
           <animated.div style={{ transform: props.xy.interpolate(trans) }}>
-            <img src="dist/img/tim_colored.png"></img>
+            <img src="dist/img/about/tim_colored.png"></img>
+          </animated.div>
             <p>
               Hello! I am a multimedia application designer and full-stack
-              developer from Belgium.
+              developer. Some of the technologies I use are..
             </p>
-          </animated.div>
+            <div className="skills">
+              <img src="dist/img/about/react.png" data-tip='React'></img>
+              <img src="dist/img/about/angular.png" data-tip='Angular'></img>
+              <img src="dist/img/about/vue.png" data-tip='Vue'></img>
+              <img src="dist/img/about/js.png" data-tip='JavaScript'></img>
+              <img src="dist/img/about/ts.png" data-tip='TypeScript'></img>
+              <img src="dist/img/about/node.png" data-tip='Node.js'></img>
+              <img src="dist/img/about/npm.png" data-tip='NPM'></img>
+              <img src="dist/img/about/mongo.png" data-tip='MongoDB'></img>
+              <img src="dist/img/about/firebase.png" data-tip='Firebase'></img>
+              <img src="dist/img/about/php.png" data-tip='PHP'></img>
+              <img src="dist/img/about/laravel.png" data-tip='Laravel'></img>
+              <img src="dist/img/about/mysql.png" data-tip='MySQL'></img>
+              <img src="dist/img/about/java.png"data-tip='Java'></img>
+              <img src="dist/img/about/swift.png" data-tip='Swift'></img>
+              <img src="dist/img/about/python.png" data-tip='Python'></img>
+              <ReactTooltip className="tooltip" effect="solid"/>
+            </div>
           <div id="contact">
             <a href="https://www.linkedin.com/in/timwillaert/" target="_blank">
               LinkedIn

@@ -77,3 +77,23 @@
   transform: translateY(-46%);
   left: -5vw;
 }
+
+.skills{
+  display: flex;
+  flex-direction: row !important;
+  margin-top: 3.5vh;
+  max-width: 40vh;
+  flex-wrap: wrap;
+  gap: 0.9vw;
+}
+
+.skills img{
+  filter: grayscale(0.8);
+  width: 2rem !important;
+  margin-bottom: 0 !important;
+}
+
+.tooltip{
+  font-family: 'Lato';
+  font-size: 1rem !important;
+}

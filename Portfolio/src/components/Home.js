@@ -33,7 +33,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log(history);
     window.addEventListener("focus", onFocus);
     const effect = BIRDS({
       THREE,
@@ -65,7 +64,7 @@ export default function Home() {
 
   const handleScroll = ({ nativeEvent }) => {
     const style = getComputedStyle(ui.current);
-    if (style.opacity != 0 && nativeEvent.deltaY > 100) {
+    if (style.opacity != 0 && nativeEvent.deltaY > 0) {
       setIsLeaving(true);
       setTimeout(() => {
         history.push("/work");
