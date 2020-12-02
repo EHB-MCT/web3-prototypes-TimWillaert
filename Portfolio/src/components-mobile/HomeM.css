@@ -1,0 +1,60 @@
+#mobileContainer{
+   min-height: 100vh;
+   background-color: #141413;
+   cursor: auto !important;
+}
+
+#mobileContainer p{
+   color: #CDCDCD;
+}
+
+#mobileWorks{
+   box-sizing: border-box;
+   padding: 7vw;
+   padding-top: 25vw;
+}
+
+.mobileWorkItem img{
+   width: 100%;
+   border-radius: 5px;
+   background-color: #E0DFDF;
+}
+
+.mobileWorkItem{
+   margin: 20vw 0;
+   position: relative;
+}
+
+.mobileWorkItem div{
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   margin-top: 10px;
+}
+
+.mobileWorkItem div img{
+   width: 8vw;
+   margin-left: 4vw;
+   border-radius: 0;
+   background-color: transparent;
+}
+
+.mobileWorkNumber{
+   color: #CDCDCD;
+   font-family: 'Recoleta';
+   position: absolute;
+   font-size: 8vw;
+   font-weight: bold;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+   top: -5vw;
+   left: -5vw;
+}
+
+.hideHome{
+   display: none !important;
+}
+
+.showHome{
+   display: block !important;
+}

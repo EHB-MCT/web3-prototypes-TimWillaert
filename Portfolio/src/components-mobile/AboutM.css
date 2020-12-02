@@ -1,0 +1,37 @@
+#mobileAbout{
+    box-sizing: border-box;
+    padding: 7vw;
+    padding-top: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mobileAbout p{
+    margin-top: 10vw;
+    font-family: 'Lato';
+}
+
+#mobileAbout p:nth-of-type(2){
+    margin-bottom: 25vw;
+}
+
+#mobileAbout .skills{
+    margin-top: 10vw;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills img{
+    margin: 7px;
+    margin-bottom: 0 !important;
+}
+ 
+#mobileAbout .mobileLink2{
+    align-self: flex-end;
+}
+
+#mobileAbout .mobileBtn{
+    font-weight: 400;
+}

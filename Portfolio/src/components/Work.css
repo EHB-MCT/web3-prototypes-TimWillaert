@@ -36,7 +36,7 @@
 }
 
 #main-work {
-  width: 80vw;
+  width: 82vw;
   height: 102vh;
   top: 0vh;
   left: -10vw;
@@ -93,7 +93,7 @@
 
 .workItem div {
   display: inline-flex;
-  align-items: flex-end;
+  align-items: baseline;
 }
 
 .workItem {
@@ -127,4 +127,32 @@
 .thumb-vertical {
   background-color: rgb(75, 75, 75);
   border-radius: 100px;
+}
+
+
+
+
+@media only screen and (max-width: 1330px) {
+  #main-work{
+    width: 90vw;
+  }
+  .workList{
+    left: 16vw;
+  }
+}
+
+@media only screen and (max-width: 1165px) {
+  .workItem{
+    margin: 3vw 0;
+  }
+  .workItem h2{
+    font-size: 10vw;
+  }
+  .workNumber{
+    font-size: 4vw;
+    width: 10vw;
+  }
+  .workList{
+    left: 18vw;
+  }
 }

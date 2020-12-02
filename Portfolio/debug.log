@@ -11,3 +11,9 @@
 [1124/203911.345:ERROR:settings.cc(325)] Settings version is not 1
 [1125/131218.105:ERROR:settings.cc(325)] Settings version is not 1
 [1128/134926.712:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1130/214607.317:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1201/135235.601:ERROR:settings.cc(325)] Settings version is not 1
+[1201/145438.328:ERROR:settings.cc(325)] Settings version is not 1
+[1202/130437.992:ERROR:settings.cc(325)] Settings version is not 1
+[1202/132402.520:ERROR:settings.cc(325)] Settings version is not 1
+[1202/151219.169:ERROR:settings.cc(325)] Settings version is not 1

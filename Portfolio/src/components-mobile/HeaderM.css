@@ -1,0 +1,141 @@
+#mobileHeader{
+    background-color: #313131;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 7vw;
+    width: 100%;
+    position: fixed;
+    z-index: 70;
+    transition: all 0.5s ease;
+}
+
+#mobileHeader-light{
+    background-color: #DEDEDE;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 7vw;
+    width: 100%;
+    position: fixed;
+    z-index: 70;
+    transition: all 0.5s ease;
+}
+
+#headerTop{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mobileName{
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileH1{
+    animation: none !important;
+    opacity: 1;
+    position: relative;
+    left: 0;
+    font-size: 9vw;
+    line-height: 8vw;
+    color: #CDCDCD;
+}
+
+.mobileH2{
+    width: auto;
+    color: #CDCDCD;
+    font-size: 5vw;
+    line-height: 4vw;
+    font-weight: normal;
+    margin-top: 7px;
+}
+
+#mobileHeader-light h1, #mobileHeader-light h2{
+    color: black !important;
+}
+
+#iconDark path{
+    fill: #CDCDCD;
+}
+
+#iconLight path{
+    fill: black;
+}
+
+.expand{
+    min-height: 100vh !important;
+}
+
+#menu{
+    display: none;
+}
+
+.leaveMenu{
+    animation: hideMenu 0.1s ease forwards !important;
+}
+
+@keyframes hideMenu{
+    0%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(50px);
+        opacity: 0;
+    }
+}
+
+#menuOpen{
+    transform: translateX(50px);
+    opacity: 0;
+    animation: showMenu 0.5s ease forwards;
+}
+
+@keyframes showMenu{
+    0%{
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+#menu, #menuOpen{
+    margin-top: 10vh;
+}
+
+#mobileHeader-light p{
+    font-family: 'Lato';
+    text-align: right;
+    font-size: 3vw;
+    color: #afafaf;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+}
+
+#mobileHeader p{
+    font-family: 'Lato';
+    text-align: right;
+    font-size: 3vw;
+    color: #7e7e7e !important;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-top: 10vw;
+    margin-bottom: 10vw;
+}
+
+#menu .mobileLink, #menuOpen .mobileLink{
+    margin: 0;
+    margin-bottom: 5vw;
+}
+
+#mobileContainer .mobileBtn{
+    color: #CDCDCD;
+}

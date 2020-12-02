@@ -1,0 +1,96 @@
+#mobileContainer-light{
+    min-height: 100vh;
+    background-color: #EFEFEF;
+    cursor: auto !important;
+ }
+
+#mobileWorkDetail{
+    box-sizing: border-box;
+    padding: 7vw;
+    padding-top: 42.5vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#mobileMetadata h3{
+    color: black;
+    font-family: 'Recoleta';
+    font-weight: normal !important;
+    font-size: 4vw;
+}
+
+#mobileMetadata{
+    font-family: 'Recoleta';
+    display: flex;
+    justify-content: space-between;
+}
+
+#mobileWorkDetail h1{
+    animation: none;
+    opacity: 1;
+    left: 0;
+    position: relative;
+    font-size: 19vw;
+    line-height: 18vw;
+    margin: 10vw 0;
+}
+
+#mobileWorkDetail p{
+    font-family: 'Lato';
+    font-size: 3.5vw;
+}
+
+.mobileWorkExpl img, .mobileWorkExpl video{
+    width: 100%;
+}
+
+.mobileWorkExpl{
+    margin-bottom: 30vw;
+}
+
+.mobileWorkExpl p{
+    margin-bottom: 15px;
+}
+
+.mobileWorkExpl p a {
+    color: black;
+    text-decoration: underline;
+    font-size: 3.5vw;
+}
+
+.mobileLink{
+    display: flex;
+    align-items: center;
+    margin: 30vw 0;
+    justify-content: flex-end;
+}
+
+.mobileLink2{
+    display: flex;
+    align-items: center;
+    margin-bottom: 8vw;
+    justify-content: flex-end;
+}
+
+.mobileBtn{
+    font-family: 'Recoleta';
+    color: black;
+    font-size: 6vw;
+    font-weight: 500;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+.mobileLink img, .mobileLink2 img{
+    width: 8vw;
+    margin-left: 4vw;
+}
+
+
+.hide{
+    display: none !important;
+}
+ 
+.show{
+    display: flex !important;
+}

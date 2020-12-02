@@ -114,7 +114,7 @@
   top: unset;
   left: unset;
   margin: 7vh 0;
-  font-size: 11rem !important;
+  font-size: 11rem;
   width: fit-content;
 }
 
@@ -271,4 +271,13 @@ video {
 
 .up {
   font-family: "Recoleta";
+}
+
+
+
+
+@media only screen and (max-width: 1200px) {
+  .child h1{
+    font-size: 14.5vw !important;
+  }
 }
