@@ -56,13 +56,13 @@ export default function HeaderM(props){
     }
 
     return(
-        <div id={props.theme == "dark" ? "mobileHeader" : "mobileHeader-light"} className={openMenu ? "expand" : ""} ref={headerRef} style={{minHeight: headerHeight}}>
+        <div id={props.theme == "dark" ? "mobileHeader" : "mobileHeader-light"} className={visibility ? "expand scrollHeight" : (openMenu ? "expand" : "")} ref={headerRef} style={{minHeight: headerHeight}}>
             <div id="headerTop">
                 <div id="mobileName" onClick={() => handlePageSwitch("/")}>
                     <h1 className="mobileH1">Tim Willaert</h1>
                     <h2 className="mobileH2">Designer x Developer</h2>
                 </div>
-                <div style={{fontSize: "6vw"}} onClick={() => {
+                <div id="menuContainer" onClick={() => {
                     setOpenMenu(!openMenu)
                     props.setMenu(!openMenu);
                 }}>

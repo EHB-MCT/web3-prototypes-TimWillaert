@@ -8,6 +8,7 @@
     position: fixed;
     z-index: 70;
     transition: all 0.5s ease;
+    overflow: auto;
 }
 
 #mobileHeader-light{
@@ -20,6 +21,7 @@
     position: fixed;
     z-index: 70;
     transition: all 0.5s ease;
+    overflow: auto;
 }
 
 #headerTop{
@@ -66,7 +68,11 @@
 }
 
 .expand{
-    min-height: 100vh !important;
+    min-height: 100% !important;
+}
+
+.scrollHeight{
+    height: 100%;
 }
 
 #menu{
@@ -138,4 +144,40 @@
 
 #mobileContainer .mobileBtn{
     color: #CDCDCD;
+}
+
+@media only screen and (min-width: 426px) {
+    .mobileH1{
+        font-size: 6vw;
+        line-height: 4vw;
+    }
+    .mobileH2{
+        font-size: 3.5vw;
+    }
+    #menuContainer{
+        font-size: 4vw;
+    }
+    #mobileHeader{
+        padding: 5vw;
+    }
+    #mobileWorks{
+        padding-top: 12vw !important;
+    }
+    .mobileWorkItem div{
+        margin-top: 30px !important;
+    }
+    .mobileBtn{
+        font-size: 4vw !important;
+    }
+    .mobileLink img{
+        width: 5vw !important;
+    }
+    #mobileHeader p{
+        font-size: 2vw !important;
+        margin-top: 5vw !important;
+        margin-bottom: 5vw !important;
+    }
+    #menu, #menuOpen{
+        margin-top: 5vw;
+    }
 }

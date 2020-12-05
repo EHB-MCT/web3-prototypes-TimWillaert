@@ -39,13 +39,25 @@ export default function AboutM(){
                     <img src="dist/img/about/python.png"></img>
                 </div>
                 <p>Contact: tim.willaert@outlook.com</p>
-                <div className="mobileLink2" onClick={() => window.open('https://www.linkedin.com/in/timwillaert/', '_blank')}>
+                <div className="mobileLink2" onClick={() => {
+                    gtag('event', 'link_click', {
+                        'event_category' : 'LinkedIn',
+                        'event_label' : 'LinkedIn'
+                    });
+                    window.open('https://www.linkedin.com/in/timwillaert/', '_blank')
+                }}>
                     <a className="mobileBtn">
                         LinkedIn
                     </a>
                     <img src={`dist/img/arrow-right.png`}></img>
                 </div>
-                <div className="mobileLink2" onClick={() => window.open('https://github.com/TimWillaert', '_blank')}>
+                <div className="mobileLink2" onClick={() => {
+                    gtag('event', 'link_click', {
+                        'event_category' : 'GitHub',
+                        'event_label' : 'GitHub'
+                    });
+                    window.open('https://github.com/TimWillaert', '_blank')
+                }}>
                     <a className="mobileBtn">
                         GitHub
                     </a>

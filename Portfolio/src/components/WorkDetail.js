@@ -104,12 +104,22 @@ export default function WorkDetail() {
             <div id="details">
               <p>{work.description}</p>
               {work.url !== undefined && (
-                <a href={work.url} target="_blank">
+                <a href={work.url} target="_blank" onClick={() => {
+                  gtag('event', 'link_click', {
+                    'event_category' : 'View Website: ' + work.title,
+                    'event_label' : 'View Website: ' + work.title
+                  });
+                }}>
                   Visit Website
                 </a>
               )}
               {work.url === undefined && (
-                <a href={work.github} target="_blank">
+                <a href={work.github} target="_blank" onClick={() => {
+                  gtag('event', 'link_click', {
+                    'event_category' : 'View Code: ' + work.title,
+                    'event_label' : 'View Code: ' + work.title
+                  });
+                }}>
                   View Code
                 </a>
               )}
@@ -141,11 +151,21 @@ export default function WorkDetail() {
           <div id="end-container">
             <div id="links">
               {work.url !== undefined && (
-                <a href={work.url} target="_blank">
+                <a href={work.url} target="_blank" onClick={() => {
+                  gtag('event', 'link_click', {
+                    'event_category' : 'View Website: ' + work.title,
+                    'event_label' : 'View Website: ' + work.title
+                  });
+                }}>
                   Visit Website
                 </a>
               )}
-              <a href={work.github} target="_blank">
+              <a href={work.github} target="_blank" onClick={() => {
+                  gtag('event', 'link_click', {
+                    'event_category' : 'View Code: ' + work.title,
+                    'event_label' : 'View Code: ' + work.title
+                  });
+                }}>
                 View Code
               </a>
             </div>

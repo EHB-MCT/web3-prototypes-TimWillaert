@@ -9,8 +9,10 @@ import HomeM from "./components-mobile/HomeM";
 import DetailM from "./components-mobile/DetailM";
 import AboutM from "./components-mobile/AboutM";
 
+import { createHashHistory } from "history";
+
 export default function App() {
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if(window.innerWidth <= 768){
@@ -30,8 +32,21 @@ export default function App() {
     window.addEventListener('resize', resize);
   }, []);
 
+  const history = createHashHistory();
+
+  useEffect(() => {
+    sendPageView((history.location));
+    history.listen(sendPageView);
+  }, [history])
+
+  const sendPageView = (history) => {
+    window.gtag('config', 'G-114X0WE4JD', {
+      page_path: history.pathname || history.location.pathname,
+    });
+  };
+
   return (
-    <Router>
+    <Router history={history}>
       {
         !isMobile ?
         <Switch>

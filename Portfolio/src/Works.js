@@ -201,5 +201,29 @@ export const Works = [
         img: "synthrider/drivermode.png",
       },
     ],
-  }
+  },
+  // {
+  //   title: "Prototypes",
+  //   pathName: "prototypes",
+  //   year: "2020",
+  //   description:
+  //     "A collection of small prototypes I made to quickly test and learn new technologies.",
+  //   url: undefined,
+  //   github: "https://github.com/EHB-MCT/web3-prototypes-TimWillaert",
+  //   thumbnail: "synthrider/thumbnail.png",
+  //   explanation: [
+  //     {
+  //       text: "An interactive online whiteboard. You can move around, draw, change colors and place text & post-its. You can link associated items. The board is persistently stored so you don't lose progress. Developed with React.",
+  //       video: ""
+  //     },
+  //     {
+  //       text: "A video chat platform. You can create or join rooms and start calling. Also features a normal text chat. You can (un)mute yourself or hide and show your video. You can also look at an AI-generated visual representation of your unique room name, just for fun. Developed with Socket.io, Node and Express.",
+  //       video: ""
+  //     },
+  //     {
+  //       text: "A back-end system for a streaming service. You can upload multiple video files which get sent to Microsoft Azure. Azure processes and encodes the videos and returns streaming urls with multiple quality presets. You can then watch your videos on the prototype. Developed with React, MongoDB, Node, Express and Azure.",
+  //       video: ""
+  //     }
+  //   ]
+  // }
 ];

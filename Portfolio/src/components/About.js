@@ -78,13 +78,23 @@ export default function About() {
               <ReactTooltip className="tooltip" effect="solid"/>
             </div>
           <div id="contact">
-            <a href="https://www.linkedin.com/in/timwillaert/" target="_blank">
+            <a href="https://www.linkedin.com/in/timwillaert/" target="_blank" onClick={() => {
+              gtag('event', 'link_click', {
+                'event_category' : 'LinkedIn',
+                'event_label' : 'LinkedIn'
+              });
+            }}>
               LinkedIn
             </a>
             <a href="mailto:tim.willaert@outlook.com" className="selectable">
               tim.willaert@outlook.com
             </a>
-            <a href="https://github.com/TimWillaert" target="_blank">
+            <a href="https://github.com/TimWillaert" target="_blank" onClick={() => {
+              gtag('event', 'link_click', {
+                'event_category' : 'GitHub',
+                'event_label' : 'GitHub'
+              });
+            }}>
               GitHub
             </a>
           </div>

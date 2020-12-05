@@ -33,14 +33,26 @@ export default function DetailM(){
                 <p>{work.description}</p>
                 {
                     work.url !== undefined ?
-                    <div className="mobileLink" onClick={() => window.open(work.url, '_blank')}>
+                    <div className="mobileLink" onClick={() => {
+                        gtag('event', 'link_click', {
+                            'event_category' : 'View Website: ' + work.title,
+                            'event_label' : 'View Website: ' + work.title
+                          });
+                        window.open(work.url, '_blank')
+                    }}>
                         <a className="mobileBtn">
                             Visit Website
                         </a>
                         <img src={`dist/img/arrow-right-black.png`}></img>
                     </div>
                     :
-                    <div className="mobileLink" onClick={() => window.open(work.github, '_blank')}>
+                    <div className="mobileLink" onClick={() => {
+                        gtag('event', 'link_click', {
+                            'event_category' : 'View Code: ' + work.title,
+                            'event_label' : 'View Code: ' + work.title
+                          });
+                        window.open(work.github, '_blank')
+                    }}>
                         <a className="mobileBtn">
                             View Code
                         </a>
@@ -61,14 +73,26 @@ export default function DetailM(){
                     })
                 }
                 {work.url !== undefined && (
-                    <div className="mobileLink2" onClick={() => window.open(work.url, '_blank')}>
+                    <div className="mobileLink2" onClick={() => {
+                        gtag('event', 'link_click', {
+                            'event_category' : 'View Website: ' + work.title,
+                            'event_label' : 'View Website: ' + work.title
+                          });
+                        window.open(work.url, '_blank')
+                    }}>
                         <a className="mobileBtn">
                             Visit Website
                         </a>
                         <img src={`dist/img/arrow-right-black.png`}></img>
                     </div>
                 )}
-                <div className="mobileLink2" onClick={() => window.open(work.github, '_blank')}>
+                <div className="mobileLink2" onClick={() => {
+                    gtag('event', 'link_click', {
+                        'event_category' : 'View Code: ' + work.title,
+                        'event_label' : 'View Code: ' + work.title
+                      });
+                    window.open(work.github, '_blank')
+                }}>
                     <a className="mobileBtn">
                         View Code
                     </a>
