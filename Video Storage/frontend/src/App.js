@@ -65,7 +65,7 @@ class App extends React.Component {
 
   updateVideos = () => {
     if(!this.state.watchingVideo && !this.state.choosingFiles){
-      axios.get('https://finalworkserver.azurewebsites.net/getVideos')
+      axios.get('http://localhost:8000/getVideos')
       .then((resp) => {
         this.setState({videos: resp.data})
         console.log(this.state.videos)
@@ -78,7 +78,7 @@ class App extends React.Component {
 
   refreshHandler = () => {
     this.setState({isRefreshing: true});
-    axios.get('https://finalworkserver.azurewebsites.net/getVideos')
+    axios.get('http://localhost:8000/getVideos')
     .then((resp) => {
       this.setState({videos: resp.data, isRefreshing: false})
     })
@@ -99,7 +99,7 @@ class App extends React.Component {
 
       data.append('file', newList[i].file)
   
-      axios.post("https://finalworkserver.azurewebsites.net/uploadVideo", data, { 
+      axios.post("http://localhost:8000/uploadVideo", data, { 
         onUploadProgress: ProgressEvent => {
           const updatedProgress = newList[i];
           updatedProgress.progress = (ProgressEvent.loaded / ProgressEvent.total*100)

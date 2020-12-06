@@ -25,7 +25,7 @@ class Video extends React.Component{
     }
 
     deleteVideo = () => {
-        axios.put('https://finalworkserver.azurewebsites.net/deleteVideo/' + this.props.item._id)
+        axios.put('http://localhost:8000/deleteVideo/' + this.props.item._id)
         .then(res => {
             this.props.updateFunction()
         })
@@ -35,7 +35,7 @@ class Video extends React.Component{
         const data = new FormData()
         data.append('file', event.target.files[0])
 
-        axios.post("https://finalworkserver.azurewebsites.net/uploadThumbnail/" + this.props.item._id, data, { 
+        axios.post("http://localhost:8000/uploadThumbnail/" + this.props.item._id, data, { 
         }).then(res => {
             console.log(res)
             this.props.updateFunction()
@@ -54,7 +54,7 @@ class Video extends React.Component{
     submitTitle = () => {
         this.props.item.name = this.state.title;
         this.toggleEditing(false)
-        axios.post("https://finalworkserver.azurewebsites.net/updateTitle/" + this.props.item._id + "/" + this.state.title);
+        axios.post("http://localhost:8000/updateTitle/" + this.props.item._id + "/" + this.state.title);
     }
 
     render(){
