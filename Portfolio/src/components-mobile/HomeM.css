@@ -51,10 +51,12 @@
    left: -5vw;
 }
 
-.hideHome{
-   display: none !important;
+.hideContent{
+   max-height: 100vh;
+   overflow: hidden;
 }
 
-.showHome{
-   display: block !important;
+.showContent{
+   max-height: 100%;
+   overflow: auto;
 }

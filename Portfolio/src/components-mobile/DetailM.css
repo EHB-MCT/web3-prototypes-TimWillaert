@@ -33,6 +33,7 @@
     font-size: 19vw;
     line-height: 18vw;
     margin: 10vw 0;
+    word-break: break-all;
 }
 
 #mobileWorkDetail p{

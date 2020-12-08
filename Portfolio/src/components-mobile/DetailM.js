@@ -11,6 +11,8 @@ export default function DetailM(){
     const [workNumber, setWorkNumber] = useState(0);
 
     const [menu, setMenu] = useState(false);
+    const [scrollTop, setScrollTop] = useState(0);
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -20,11 +22,25 @@ export default function DetailM(){
         document.title = "Tim Willaert - " + obj.title;
     }, []);
 
+    useEffect(() => {
+        if(menu){
+            setScrollTop(window.pageYOffset)
+            setTimeout(() => {
+                setVisible(false);
+            }, 500)
+        } else{
+            setVisible(true);
+            setTimeout(() => {
+                window.scroll(0, scrollTop)
+            }, 1)
+        }
+    }, [menu])
+
     return (
         <div id="mobileContainer-light">
             <div id="overlay"></div>
             <HeaderM theme="light" setMenu={setMenu}/>
-            <div id="mobileWorkDetail">
+            <div id="mobileWorkDetail" className={visible ? "showContent" : "hideContent"}>
                 <div id="mobileMetadata">
                     <h3>{"Project 0" + (workNumber + 1)}</h3>
                     <h3>{work.year}</h3>

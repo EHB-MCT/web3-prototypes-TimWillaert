@@ -75,6 +75,7 @@ export default function About() {
               <img src="dist/img/about/java.png"data-tip='Java'></img>
               <img src="dist/img/about/swift.png" data-tip='Swift'></img>
               <img src="dist/img/about/python.png" data-tip='Python'></img>
+              <img src="dist/img/about/creativecloud.svg" data-tip='Adobe Creative Cloud'></img>
               <ReactTooltip className="tooltip" effect="solid"/>
             </div>
           <div id="contact">

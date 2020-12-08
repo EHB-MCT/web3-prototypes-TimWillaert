@@ -6,16 +6,32 @@ export default function AboutM(){
     document.title = "Tim Willaert - About";
 
     const [menu, setMenu] = useState(false);
+    const [scrollTop, setScrollTop] = useState(0);
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+        if(menu){
+            setScrollTop(window.pageYOffset)
+            setTimeout(() => {
+                setVisible(false);
+            }, 500)
+        } else{
+            setVisible(true);
+            setTimeout(() => {
+                window.scroll(0, scrollTop)
+            }, 1)
+        }
+    }, [menu])
+
     return (
         <div id="mobileContainer">
             <div id="overlay"></div>
             <HeaderM theme="dark" setMenu={setMenu}/>
-            <div id="mobileAbout">
+            <div id="mobileAbout" className={visible ? "showContent" : "hideContent"}>
                 <img src="dist/img/about/tim_colored.png"></img>
                 <p>
                     Hello! I am a multimedia application designer and full-stack
@@ -37,6 +53,7 @@ export default function AboutM(){
                     <img src="dist/img/about/java.png"></img>
                     <img src="dist/img/about/swift.png"></img>
                     <img src="dist/img/about/python.png"></img>
+                    <img src="dist/img/about/creativecloud.svg"></img>
                 </div>
                 <p>Contact: tim.willaert@outlook.com</p>
                 <div className="mobileLink2" onClick={() => {
