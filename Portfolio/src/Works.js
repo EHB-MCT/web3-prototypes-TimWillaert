@@ -1,5 +1,64 @@
 export const Works = [
   {
+    title: "Cinemate",
+    pathName: "cinemate",
+    year: "2021",
+    description: "My bachelor's thesis. Cinemate is a streaming platform dedicated to interactive movies. The platform aims to create a social digital experience by allowing people to watch movies together with their friends and vote on how the story should continue. Won 'best bachelors thesis' award at Erasmus University College Brussels in 2021.",
+    url: "https://www.cinemate.io/",
+    github: undefined,
+    thumbnail: "cinemate/thumbnail.png",
+    explanation: [
+      {
+        text: "Promotional video for Cinemate.",
+        video: "cinemate/Showreel.mp4"
+      },
+      {
+        text: "Promotional image for Cinemate.",
+        img: "cinemate/Sleutelbeeld.jpg"
+      },
+      {
+        text: "Landing page. The entire platform is available in both Dutch and English.",
+        img: "cinemate/Landingspagina.jpg"
+      },
+      {
+        text: "Before the user creates or joins a group, they are shown a pop-up window in which they can select which audio and video device to use for the group call.",
+        img: "cinemate/Toestelconfiguratie.jpg"
+      },
+      {
+        text: "Cinemate has a built-in (video) chat, so users don't need to rely on any third-party solutions to communicate. You can (un)mute participants individually, and change audio and video devices on the fly.",
+        img: "cinemate/Lobby.jpg"
+      },
+      {
+        text: "The group leader can select which movie the group is going to watch. A trailer plays when hovering over a movie, and additional information is shown, such as a couple of genre tags and a description.",
+        img: "cinemate/Filmselectie.jpg"
+      },
+      {
+        text: "Subtitles can be toggled on or off and are available in both Dutch and English.",
+        img: "cinemate/Ondertitels.jpg"
+      },
+      {
+        text: "When the group reaches an impasse, each participant has to vote on their preferred choice. If the timer ends on a draw, a second round will commence.",
+        img: "cinemate/Keuze.jpg"
+      },
+      {
+        text: "By the end of the movie, the group gets to see some interesting statistics about their choices.",
+        img: "cinemate/Statistieken.jpg"
+      },
+      {
+        text: "Early wireframe for the lobby page.",
+        img: "cinemate/Wireframe.png"
+      },
+      {
+        text: "Early design for movie browsing.",
+        img: "cinemate/EarlySelection.png"
+      },
+      {
+        text: "This project was based on a big collaboration between <a href='https://www.linkedin.com/in/chiel-habils/' class='link' target='_blank'>Chiel Habils</a> and me. He created 'Carpe Diem', the launch movie of Cinemate. It's an impressive achievement, especially for a student with little movie production experience. Here's the trailer for Carpe Diem.",
+        video: "cinemate/Trailer.mp4"
+      }
+    ]
+  },
+  {
     title: "Dots&Pix",
     pathName: "dots&pix",
     year: "2020",

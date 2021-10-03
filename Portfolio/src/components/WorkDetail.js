@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import { Works } from "../Works";
 import { useSpring, animated } from "react-spring";
 import ImageDistort from "react-image-list-distort";
-import ProgressBar from "react-scroll-progress-bar";
+// import ProgressBar from "react-scroll-progress-bar";
 import ScrollToTop from "react-scroll-up";
 var parse = require("html-react-parser");
 
@@ -61,8 +61,8 @@ export default function WorkDetail() {
       />
       <div id="overlay"></div>
       <div id="fadeOut-dark" className={isLeaving ? "transition" : ""}></div>
+      {/* <ProgressBar bgcolor="#7B08FF" /> */}
       <div id="content-detail">
-        <ProgressBar bgcolor="#7B08FF" />
         <ScrollToTop showUnder={250} style={{ right: "10%", bottom: "8%" }}>
           <span className="up link">Top</span>
         </ScrollToTop>
@@ -137,7 +137,7 @@ export default function WorkDetail() {
                 return (
                   <div className="workExpl" key={key}>
                     <div>
-                      <p>{"0" + (key + 1)}</p>
+                      <p>{key + 1 < 10 ? "0" + (key + 1) : key + 1}</p>
                       <p>{parse(data.text)}</p>
                     </div>
                     {data.img && <img src={`dist/img/${data.img}`}></img>}
@@ -160,7 +160,8 @@ export default function WorkDetail() {
                   Visit Website
                 </a>
               )}
-              <a href={work.github} target="_blank" onClick={() => {
+              {work.github !== undefined && (
+                <a href={work.github} target="_blank" onClick={() => {
                   gtag('event', 'link_click', {
                     'event_category' : 'View Code: ' + work.title,
                     'event_label' : 'View Code: ' + work.title
@@ -168,6 +169,7 @@ export default function WorkDetail() {
                 }}>
                 View Code
               </a>
+              )}
             </div>
             <div id="nextProject">
               <p>Next project</p>

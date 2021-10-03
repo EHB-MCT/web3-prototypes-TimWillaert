@@ -102,18 +102,22 @@ export default function DetailM(){
                         <img src={`dist/img/arrow-right-black.png`}></img>
                     </div>
                 )}
-                <div className="mobileLink2" onClick={() => {
-                    gtag('event', 'link_click', {
-                        'event_category' : 'View Code: ' + work.title,
-                        'event_label' : 'View Code: ' + work.title
-                      });
-                    window.open(work.github, '_blank')
-                }}>
-                    <a className="mobileBtn">
-                        View Code
-                    </a>
-                    <img src={`dist/img/arrow-right-black.png`}></img>
-                </div>
+                {
+                    work.github !== undefined && (
+                        <div className="mobileLink2" onClick={() => {
+                            gtag('event', 'link_click', {
+                                'event_category' : 'View Code: ' + work.title,
+                                'event_label' : 'View Code: ' + work.title
+                            });
+                            window.open(work.github, '_blank')
+                        }}>
+                            <a className="mobileBtn">
+                                View Code
+                            </a>
+                            <img src={`dist/img/arrow-right-black.png`}></img>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
